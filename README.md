@@ -15,6 +15,4 @@ Access our Ground Station online: [https://minercrat.github.io/orbitra26/](https
 ## 📂 Project Structure
 - `/index.html`: Mission Control Ground Station with 3D Attitude visualizer, PFD, and GPS tracking.
 - `/firmware/`: ESP-NOW transmitter & receiver Arduino sketches.
-- `/cad/`: STL models for 3D printed 1U CubeSat chassis.
-- `/schematics/`: Wiring and power distribution diagrams.
 - `/docs/`: Pre-flight checklist & Viva preparation guide.
