@@ -1,3 +1,21 @@
+This happened because the introductory chat message was accidentally copied
+along with the code and pasted into the top of your index.html file!
+
+Quick 5-Second Fix
+
+1.  Open your index.html file in your text editor (VS Code, Notepad, etc.).
+2.  Look at the very first line at the top.
+3.  Delete all the text that appears before <!DOCTYPE html>:
+
+❌ DELETE THIS PARAGRAPH AT THE TOP:
+Here is your complete, updated index.html file. What has been integrated: - Direct Web Serial USB Hardware Link: Added the [ CONNECT USB ] button to the header toolbar... Complete File: index.html
+
+Your file must start strictly on Line 1 with <!DOCTYPE html>.
+
+Clean Code (Copy starting directly from Line 1)
+
+Here is the clean file with zero introductory text above it:
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -373,9 +391,7 @@
       </div>
     </header>
 
-    <!-- ======================================================== -->
-    <!-- MASTER CAUTION & WARNING (MC&W) ANNUNCIATOR MATRIX      -->
-    <!-- ======================================================== -->
+    <!-- MASTER CAUTION & WARNING (MC&W) ANNUNCIATOR MATRIX -->
     <div class="hud-card p-3 rounded-xl">
       <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1.5 mb-2">
         <span class="orbitron text-xs font-bold text-cyan-300 flex items-center gap-1.5">
@@ -395,12 +411,8 @@
       </div>
     </div>
 
-    <!-- ======================================================== -->
     <!-- INTERACTIVE TELECOMMAND UPLINK & JUDGE ANOMALY INJECTOR -->
-    <!-- ======================================================== -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
-      
-      <!-- Telecommand Uplink Controls (Parameter 4) -->
       <div class="hud-card p-3 rounded-xl lg:col-span-7 flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1 mb-2">
           <span class="orbitron text-xs font-bold text-cyan-300 flex items-center gap-1.5">
@@ -426,7 +438,6 @@
         </div>
       </div>
 
-      <!-- Judge Anomaly Scenario Injector (Stage 3 Rule 4) -->
       <div class="hud-card p-3 rounded-xl lg:col-span-5 flex flex-col justify-between border-amber-500/30">
         <div class="flex items-center justify-between border-b border-amber-500/20 pb-1 mb-2">
           <span class="orbitron text-xs font-bold text-amber-300 flex items-center gap-1.5">
@@ -448,7 +459,6 @@
           </button>
         </div>
       </div>
-
     </div>
 
     <!-- MISSION FLIGHT STATE MACHINE & DUAL-ESP32 LINK BUDGET -->
@@ -471,7 +481,6 @@
         </div>
       </div>
 
-      <!-- Dual ESP32 Link Health Ribbon (Parameter 2) -->
       <div class="hud-card p-3 rounded-xl lg:col-span-5 flex flex-col justify-between">
         <div class="flex items-center justify-between text-[11px] mb-2 border-b border-cyan-500/20 pb-1">
           <span class="orbitron font-bold text-cyan-300 flex items-center gap-1.5">
@@ -1699,7 +1708,7 @@
           if (done) break;
           buffer += value;
           const lines = buffer.split("\n");
-          buffer = lines.pop(); // Hold incomplete chunk
+          buffer = lines.pop();
 
           for (const line of lines) {
             const cleanLine = line.trim();
