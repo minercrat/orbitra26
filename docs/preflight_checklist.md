@@ -13,7 +13,7 @@
 
 ### 3. Telemetry Ground Station Link
 - [ ] Ground Base ESP32 plugged into laptop via USB-C.
-- [ ] Dashboard opened on Chrome/Edge: [https://<username>.github.io/orbitra26/](https://<username>.github.io/orbitra26/)
+- [ ] Dashboard opened on Chrome/Edge: [https://<username>.github.io/orbitra26/](https://minercrat.github.io/orbitra26/)
 - [ ] Clicked `CONNECT USB` and verified live telemetry packets arriving.
 - [ ] Clicked `TARE ALT` to zero the BMP280 altimeter to local pad ground level.
 - [ ] Started CSV blackbox recording (`REC CSV`).
