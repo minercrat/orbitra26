@@ -1,0 +1,6 @@
+# Required Arduino IDE Libraries for Orbitra '26 ESP32 Firmware:
+Adafruit MPU6050
+Adafruit BMP280 Library
+Adafruit Unified Sensor
+DHT sensor library by Adafruit
+TinyGPSPlus
