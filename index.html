@@ -334,7 +334,7 @@
         </div>
       </div>
 
-      <!-- Action Toolbar (Direct USB Serial, Viva Modal, Tare, Sim, Recorder) -->
+      <!-- Action Toolbar -->
       <div class="flex items-center flex-wrap gap-2 text-xs">
         
         <!-- DIRECT USB SERIAL HARDWARE LINK (GROUND BASE ESP32) -->
@@ -343,10 +343,10 @@
           <span id="usbBtnText" class="font-bold text-[11px]">CONNECT USB</span>
         </button>
 
-        <!-- VIVA & ARCHITECTURE CHEAT SHEET (STAGE 2) -->
+        <!-- VIVA & ARCHITECTURE CHEAT SHEET -->
         <button onclick="toggleVivaModal()" class="px-3 py-1.5 rounded bg-indigo-950 border border-indigo-400 text-indigo-300 hover:bg-indigo-600 hover:text-white flex items-center gap-1.5 transition-all shadow-[0_0_10px_rgba(99,102,241,0.4)]">
           <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-          <span class="orbitron font-bold text-[10px]">VIVA & HARDWARE GUIDE</span>
+          <span class="orbitron font-bold text-[10px]">VIVA GUIDE</span>
         </button>
 
         <button id="simToggleBtn" onclick="toggleFlightSim()" class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:border-cyan-400 flex items-center space-x-1.5 transition-all">
@@ -373,7 +373,7 @@
       </div>
     </header>
 
-    <!-- MASTER CAUTION & WARNING (MC&W) ANNUNCIATOR MATRIX -->
+    <!-- MASTER CAUTION & WARNING ANNUNCIATOR MATRIX -->
     <div class="hud-card p-3 rounded-xl">
       <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1.5 mb-2">
         <span class="orbitron text-xs font-bold text-cyan-300 flex items-center gap-1.5">
@@ -385,61 +385,11 @@
 
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
         <div id="annun-rf" class="annun-box annun-nominal">COMM: NOMINAL</div>
-        <div id="annun-gps" class="annun-box annun-nominal">GPS: 3D FIX (9 SATS)</div>
-        <div id="annun-eps" class="annun-box annun-nominal">EPS: 7.92V OK</div>
+        <div id="annun-gps" class="annun-box annun-nominal">GPS: 3D FIX</div>
+        <div id="annun-eps" class="annun-box annun-nominal">EPS: 7.84V OK</div>
         <div id="annun-chute" class="annun-box annun-nominal">CHUTE: ARMED</div>
         <div id="annun-imu" class="annun-box annun-nominal">IMU: ATTITUDE OK</div>
         <div id="annun-rec" class="annun-box annun-nominal">BLACKBOX: IDLE</div>
-      </div>
-    </div>
-
-    <!-- INTERACTIVE TELECOMMAND UPLINK & JUDGE ANOMALY INJECTOR -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
-      <div class="hud-card p-3 rounded-xl lg:col-span-7 flex flex-col justify-between">
-        <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1 mb-2">
-          <span class="orbitron text-xs font-bold text-cyan-300 flex items-center gap-1.5">
-            <i data-lucide="send" class="w-3.5 h-3.5 text-cyan-400"></i>
-            INTERACTIVE TELECOMMAND UPLINK (TX TO CUBESAT)
-          </span>
-          <span class="text-[10px] text-slate-400">2.4GHz TRANSMIT</span>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          <button onclick="sendUplinkCommand('PING')" class="p-2 rounded bg-slate-900 border border-cyan-500/40 hover:bg-cyan-500 hover:text-black text-cyan-300 text-xs font-bold transition-all flex items-center justify-center gap-1">
-            <i data-lucide="activity" class="w-3.5 h-3.5"></i> PING BEACON
-          </button>
-          <button onclick="sendUplinkCommand('BUZZER')" class="p-2 rounded bg-slate-900 border border-amber-500/40 hover:bg-amber-500 hover:text-black text-amber-300 text-xs font-bold transition-all flex items-center justify-center gap-1">
-            <i data-lucide="bell" class="w-3.5 h-3.5"></i> LOCATOR BUZZER
-          </button>
-          <button onclick="sendUplinkCommand('RATE')" class="p-2 rounded bg-slate-900 border border-emerald-500/40 hover:bg-emerald-500 hover:text-black text-emerald-300 text-xs font-bold transition-all flex items-center justify-center gap-1">
-            <i data-lucide="gauge" class="w-3.5 h-3.5"></i> CYCLE 1/5/10Hz
-          </button>
-          <button onclick="sendUplinkCommand('REBOOT')" class="p-2 rounded bg-slate-900 border border-rose-500/40 hover:bg-rose-500 hover:text-white text-rose-300 text-xs font-bold transition-all flex items-center justify-center gap-1">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> REBOOT NODE
-          </button>
-        </div>
-      </div>
-
-      <div class="hud-card p-3 rounded-xl lg:col-span-5 flex flex-col justify-between border-amber-500/30">
-        <div class="flex items-center justify-between border-b border-amber-500/20 pb-1 mb-2">
-          <span class="orbitron text-xs font-bold text-amber-300 flex items-center gap-1.5">
-            <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i>
-            JUDGE'S ANOMALY SIMULATOR
-          </span>
-          <span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40">STAGE 3 RULE 4</span>
-        </div>
-
-        <div class="grid grid-cols-3 gap-2">
-          <button onclick="injectAnomaly('I2C_FAULT')" class="p-1.5 rounded bg-amber-950/40 border border-amber-500/40 hover:bg-amber-500 hover:text-black text-[10px] font-bold text-amber-200 transition-all text-center">
-            ⚠️ I2C BUS FAULT
-          </button>
-          <button onclick="injectAnomaly('TUMBLE_FAIL')" class="p-1.5 rounded bg-rose-950/40 border border-rose-500/40 hover:bg-rose-500 hover:text-white text-[10px] font-bold text-rose-200 transition-all text-center">
-            🌪️ TUMBLE / HIGH-G
-          </button>
-          <button onclick="injectAnomaly('LOW_BATT')" class="p-1.5 rounded bg-orange-950/40 border border-orange-500/40 hover:bg-orange-500 hover:text-black text-[10px] font-bold text-orange-200 transition-all text-center">
-            🔋 VOLTAGE CRASH
-          </button>
-        </div>
       </div>
     </div>
 
@@ -451,7 +401,7 @@
             <i data-lucide="compass" class="w-3.5 h-3.5 text-cyan-400"></i>
             FLIGHT STATE MACHINE // MISSION PHASE
           </span>
-          <span class="text-slate-400">MISSION ELAPSED: <strong id="metTimer" class="text-cyan-300 font-mono">T+00:02:24</strong></span>
+          <span class="text-slate-400">MISSION ELAPSED: <strong id="metTimer" class="text-cyan-300 font-mono">T+00:00:00</strong></span>
         </div>
 
         <div class="grid grid-cols-5 gap-1.5 text-center text-[10px] font-bold font-mono">
@@ -475,19 +425,19 @@
         <div class="grid grid-cols-4 gap-2 text-center text-xs">
           <div class="bg-slate-900/80 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">RSSI</div>
-            <div id="rssiVal" class="text-cyan-300 font-bold font-mono">-58 dBm</div>
+            <div id="rssiVal" class="text-cyan-300 font-bold font-mono">-65 dBm</div>
           </div>
           <div class="bg-slate-900/80 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">PACKET LOSS</div>
-            <div id="perVal" class="text-emerald-400 font-bold font-mono">0.02%</div>
+            <div id="perVal" class="text-emerald-400 font-bold font-mono">0.00%</div>
           </div>
           <div class="bg-slate-900/80 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">LATENCY</div>
             <div id="pingVal" class="text-cyan-300 font-bold font-mono">14 ms</div>
           </div>
           <div class="bg-slate-900/80 p-1.5 rounded border border-slate-800">
-            <div class="text-[9px] text-slate-400">PKT RATIO</div>
-            <div id="packetSeq" class="text-cyan-300 font-bold font-mono">142/142</div>
+            <div class="text-[9px] text-slate-400">PKT COUNT</div>
+            <div id="packetSeq" class="text-cyan-300 font-bold font-mono">#0</div>
           </div>
         </div>
       </div>
@@ -496,7 +446,7 @@
     <!-- Main Telemetry Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
-      <!-- 1. MPU6050 3D CUBESAT (Three.js) -->
+      <!-- 1. MPU6050 3D CUBESAT -->
       <div class="hud-card p-4 rounded-xl flex flex-col justify-between lg:col-span-2">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2">
           <div class="flex items-center space-x-2">
@@ -555,7 +505,7 @@
           </div>
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[10px] text-slate-400">BARO ALTITUDE</div>
-            <div id="pfdAltVal" class="text-cyan-300 font-bold text-sm">84.0 m</div>
+            <div id="pfdAltVal" class="text-cyan-300 font-bold text-sm">15.0 m</div>
           </div>
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[10px] text-slate-400">HEADING (HDG)</div>
@@ -574,7 +524,7 @@
         <div class="my-2 text-center">
           <div class="text-[10px] text-slate-400 uppercase tracking-wider">Relative Altitude (AGL)</div>
           <div class="orbitron text-2xl font-black text-cyan-400">
-            <span id="altitudeVal">84.0</span> <span class="text-xs font-normal text-slate-300">m</span>
+            <span id="altitudeVal">15.0</span> <span class="text-xs font-normal text-slate-300">m</span>
           </div>
         </div>
 
@@ -593,7 +543,7 @@
           </div>
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">CORE TEMP</div>
-            <div id="bmpTempVal" class="text-sky-300 font-bold text-xs">28.4 °C</div>
+            <div id="bmpTempVal" class="text-sky-300 font-bold text-xs">24.5 °C</div>
           </div>
         </div>
       </div>
@@ -608,7 +558,7 @@
         <div class="space-y-1.5 my-2 text-xs">
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-slate-400 text-[11px]">MAX ALTITUDE (APOGEE):</span>
-            <span id="peakAlt" class="text-cyan-300 font-bold font-mono">84.0 m</span>
+            <span id="peakAlt" class="text-cyan-300 font-bold font-mono">15.0 m</span>
           </div>
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-slate-400 text-[11px]">MAX VERTICAL SPEED:</span>
@@ -616,7 +566,7 @@
           </div>
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-slate-400 text-[11px]">PEAK G-FORCE:</span>
-            <span id="peakG" class="text-rose-300 font-bold font-mono">1.02 G</span>
+            <span id="peakG" class="text-rose-300 font-bold font-mono">1.00 G</span>
           </div>
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-slate-400 text-[11px]">APOGEE TIMESTAMP:</span>
@@ -641,12 +591,12 @@
           <div class="flex flex-col items-center justify-center p-2.5 bg-slate-900/90 rounded border border-slate-800">
             <i data-lucide="thermometer" class="w-4 h-4 text-amber-400 mb-0.5"></i>
             <div class="text-[10px] text-slate-400 uppercase">Chassis Temp</div>
-            <div id="dhtTempVal" class="orbitron text-lg font-bold text-amber-400">29.1°C</div>
+            <div id="dhtTempVal" class="orbitron text-lg font-bold text-amber-400">24.5°C</div>
           </div>
           <div class="flex flex-col items-center justify-center p-2.5 bg-slate-900/90 rounded border border-slate-800">
             <i data-lucide="droplets" class="w-4 h-4 text-blue-400 mb-0.5"></i>
             <div class="text-[10px] text-slate-400 uppercase">Humidity</div>
-            <div id="dhtHumVal" class="orbitron text-lg font-bold text-blue-400">62.0%</div>
+            <div id="dhtHumVal" class="orbitron text-lg font-bold text-blue-400">50.0%</div>
           </div>
         </div>
 
@@ -667,10 +617,10 @@
           <div>
             <div class="flex justify-between mb-1">
               <span class="text-slate-400 text-[11px]">2S Li-Ion Pack:</span>
-              <span id="packPct" class="text-cyan-300 font-bold">92% (7.95V)</span>
+              <span id="packPct" class="text-cyan-300 font-bold">88% (7.84V)</span>
             </div>
             <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-              <div id="packBar" class="bg-cyan-400 h-full rounded-full transition-all duration-300" style="width: 92%;"></div>
+              <div id="packBar" class="bg-cyan-400 h-full rounded-full transition-all duration-300" style="width: 88%;"></div>
             </div>
           </div>
 
@@ -693,31 +643,30 @@
 
     </div>
 
-    <!-- LEAFLET.JS RECOVERY GPS MAP (ESRI WORLD SATELLITE IMAGERY) -->
+    <!-- LEAFLET.JS RECOVERY GPS MAP -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
       <div class="hud-card p-4 rounded-xl lg:col-span-8 flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2 mb-2">
           <div class="flex items-center space-x-2">
             <span class="orbitron text-xs font-bold text-cyan-300">NEO-6M GPS // GEOSPATIAL RECOVERY MAP</span>
-            <span class="text-[9px] px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-500/30">MMMUT CAMPUS (ESRI SATELLITE)</span>
+            <span id="gpsFixBadge" class="text-[9px] px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-500/30">GPS FIX: STANDBY</span>
           </div>
           <div class="text-[11px] text-slate-400 flex items-center gap-3">
-            <span>SATS: <strong id="gpsSats" class="text-emerald-400">9 LOCKED</strong></span>
+            <span>SATS: <strong id="gpsSats" class="text-emerald-400">6 LOCKED</strong></span>
             <span>HDOP: <strong class="text-cyan-300">0.9</strong></span>
           </div>
         </div>
 
-        <!-- Satellite Map Viewport -->
         <div id="recoveryMap" class="w-full h-64 rounded-lg border border-cyan-500/20 z-0 bg-slate-950"></div>
 
         <div class="grid grid-cols-4 gap-2 text-center text-xs mt-2">
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">LATITUDE</div>
-            <div id="gpsLat" class="text-cyan-300 font-bold font-mono">26.7314° N</div>
+            <div id="gpsLat" class="text-cyan-300 font-bold font-mono">28.6139° N</div>
           </div>
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">LONGITUDE</div>
-            <div id="gpsLon" class="text-cyan-300 font-bold font-mono">83.4332° E</div>
+            <div id="gpsLon" class="text-cyan-300 font-bold font-mono">77.2090° E</div>
           </div>
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">GROUND SPEED</div>
@@ -725,7 +674,7 @@
           </div>
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">GPS ALTITUDE</div>
-            <div id="gpsAltVal" class="text-cyan-300 font-bold font-mono">86.2 m</div>
+            <div id="gpsAltVal" class="text-cyan-300 font-bold font-mono">15.0 m</div>
           </div>
         </div>
       </div>
@@ -768,7 +717,7 @@
             <span id="graphTitle" class="orbitron text-xs md:text-sm font-bold text-cyan-300">
               BMP280 ALTITUDE TRAJECTORY (LIVE RECEPTION)
             </span>
-            <span id="graphSubtitle" class="block text-[10px] text-slate-400">SAMPLING RATE: 1000ms // DOWNLINK STREAM</span>
+            <span id="graphSubtitle" class="block text-[10px] text-slate-400">SAMPLING RATE: 250ms // DOWNLINK STREAM</span>
           </div>
 
           <button id="toggleGridBtn" onclick="toggleMultiGrid()" class="text-xs px-3 py-1 rounded bg-slate-900 border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500 hover:text-black flex items-center gap-1.5 transition-colors">
@@ -839,9 +788,8 @@
 
         <div id="rawLog" class="h-60 bg-black/90 rounded p-2 text-[10px] text-cyan-400 font-mono overflow-y-auto border border-cyan-500/20 space-y-1">
           <div>[INIT] Ground Station ESP32 Synchronized.</div>
-          <div>[MAP] Esri High-Resolution Satellite Map Active.</div>
-          <div>[ANNUNCIATOR] Master Alert Matrix Online.</div>
-          <div>[READY] Telemetry System Operational. Click 'CONNECT USB' to stream live hardware.</div>
+          <div>[PARSER] Direct receiver telemetry mapper active.</div>
+          <div>[READY] Click 'CONNECT USB' to stream live flight data.</div>
         </div>
       </div>
     </div>
@@ -865,13 +813,12 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-        
         <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-700">
           <div class="orbitron text-cyan-300 font-bold text-sm mb-1">1. DUAL ESP32 ARCHITECTURE</div>
           <div class="text-slate-300 space-y-1">
             <div>• <strong>Node 1 (CubeSat):</strong> Telemetry transmitter inside satellite.</div>
             <div>• <strong>Node 2 (Ground Base):</strong> Receiver plugged via USB to laptop.</div>
-            <div>• <strong>Protocol:</strong> 2.4GHz ESP-NOW (Low latency &lt;15ms, direct peer-to-peer, no router).</div>
+            <div>• <strong>Protocol:</strong> 2.4GHz ESP-NOW (Low latency &lt;15ms, direct peer-to-peer).</div>
             <div>• <strong>Processor:</strong> Xtensa Dual-Core 32-bit LX6 @ 240 MHz.</div>
           </div>
         </div>
@@ -882,17 +829,16 @@
             <div>• <strong>Function:</strong> Measures 3-axis angular velocity and linear acceleration.</div>
             <div>• <strong>Bus:</strong> I2C Interface (Address: <code class="text-cyan-300">0x68</code>).</div>
             <div>• <strong>Pins:</strong> SDA (GPIO 21), SCL (GPIO 22).</div>
-            <div>• <strong>Voltage:</strong> 3.3V power rail.</div>
+            <div>• <strong>Wakeup:</strong> Clears sleep bit at register 0x6B.</div>
           </div>
         </div>
 
         <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-700">
           <div class="orbitron text-cyan-300 font-bold text-sm mb-1">3. BMP280 (BAROMETER)</div>
           <div class="text-slate-300 space-y-1">
-            <div>• <strong>Function:</strong> Atmospheric pressure (hPa) & calculated altitude via hypsometric formula.</div>
-            <div>• <strong>Bus:</strong> Shared I2C Bus (Address: <code class="text-cyan-300">0x76</code>).</div>
+            <div>• <strong>Function:</strong> Pressure (hPa) & calculated altitude via hypsometric formula.</div>
+            <div>• <strong>Bus:</strong> Shared I2C Bus (Address: <code class="text-cyan-300">0x76 / 0x77</code>).</div>
             <div>• <strong>Pins:</strong> SDA (GPIO 21), SCL (GPIO 22).</div>
-            <div>• <strong>Precision:</strong> ±1 hPa (~1 meter altitude resolution).</div>
           </div>
         </div>
 
@@ -900,19 +846,17 @@
           <div class="orbitron text-cyan-300 font-bold text-sm mb-1">4. DHT11 (ENVIRONMENT)</div>
           <div class="text-slate-300 space-y-1">
             <div>• <strong>Function:</strong> Chassis internal ambient temperature & relative humidity.</div>
-            <div>• <strong>Bus:</strong> 1-Wire Digital Communication.</div>
-            <div>• <strong>Pin:</strong> DATA (GPIO 4) with 10kΩ pull-up.</div>
-            <div>• <strong>Range:</strong> 20-90% RH, 0-50°C.</div>
+            <div>• <strong>Bus:</strong> 1-Wire Digital Communication on GPIO 4.</div>
+            <div>• <strong>Sampling:</strong> Throttled to 2-second intervals to prevent NaN.</div>
           </div>
         </div>
 
         <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-700">
           <div class="orbitron text-cyan-300 font-bold text-sm mb-1">5. NEO-6M GPS MODULE</div>
           <div class="text-slate-300 space-y-1">
-            <div>• <strong>Function:</strong> Geolocation, Latitude, Longitude, Doppler Ground Speed.</div>
-            <div>• <strong>Bus:</strong> HardwareSerial UART @ 9600 baud.</div>
-            <div>• <strong>Pins:</strong> GPS TX &rarr; ESP32 RX2 (GPIO 16), GPS RX &rarr; ESP32 TX2 (GPIO 17).</div>
-            <div>• <strong>Antenna:</strong> Dedicated ceramic patch antenna.</div>
+            <div>• <strong>Function:</strong> Latitude, Longitude, Doppler Ground Speed.</div>
+            <div>• <strong>Bus:</strong> HardwareSerial UART2 @ 9600 baud.</div>
+            <div>• <strong>Pins:</strong> RX2 (GPIO 16), TX2 (GPIO 17).</div>
           </div>
         </div>
 
@@ -920,12 +864,10 @@
           <div class="orbitron text-cyan-300 font-bold text-sm mb-1">6. POWER SUBSYSTEM (EPS)</div>
           <div class="text-slate-300 space-y-1">
             <div>• <strong>Battery:</strong> 2S Li-Ion Cells (7.4V nominal, 8.4V max).</div>
-            <div>• <strong>Protection:</strong> 2S 7.4V BMS (Overcharge & over-discharge cut-off).</div>
             <div>• <strong>Regulation:</strong> LM2596 DC-DC Buck Converter steps down 7.4V &rarr; 5.0V clean bus.</div>
-            <div>• <strong>Monitoring:</strong> Resistor divider network to ADC (GPIO 34).</div>
+            <div>• <strong>ADC Monitor:</strong> Voltage divider to GPIO 34.</div>
           </div>
         </div>
-
       </div>
 
       <div class="mt-4 p-3 rounded bg-cyan-950/40 border border-cyan-500/30 text-xs text-slate-300 flex justify-between items-center">
@@ -1012,12 +954,8 @@
     let audioCtx = null;
 
     function getAudioCtx() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
       return audioCtx;
     }
 
@@ -1072,25 +1010,7 @@
       } catch (e) {}
     }
 
-    function playAlertTone() {
-      if (isAudioMuted) return;
-      try {
-        const ctx = getAudioCtx();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(440, ctx.currentTime);
-        osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
-        gain.gain.setValueAtTime(0.06, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.25);
-      } catch (e) {}
-    }
-
-    // 3. LEAFLET.JS RECOVERY GPS MAP (ESRI SATELLITE - NO WATERMARKS)
+    // 3. LEAFLET.JS RECOVERY GPS MAP
     const MMMUT_COORDS = [26.7314, 83.4332];
     let mapInstance = null;
     let canSatMarker = null;
@@ -1159,16 +1079,14 @@
       const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
                 Math.cos(φ1) * Math.cos(φ2) *
                 Math.sin(Δλ/2) * Math.sin(Δλ/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      return R * c;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     }
 
     function calculateCompassBearing(lat1, lon1, lat2, lon2) {
       const y = Math.sin((lon2 - lon1) * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180);
       const x = Math.cos(lat1 * Math.PI / 180) * Math.sin(lat2 * Math.PI / 180) -
                 Math.sin(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.cos((lon2 - lon1) * Math.PI / 180);
-      const θ = Math.atan2(y, x);
-      return (θ * 180 / Math.PI + 360) % 360;
+      return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
     }
 
     // 4. SCREEN TRANSITIONS & VIVA MODAL
@@ -1245,12 +1163,10 @@
 
       const chassisGeo = new THREE.BoxGeometry(2.0, 2.0, 2.0);
       const chassisMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.85, roughness: 0.25 });
-      const chassis = new THREE.Mesh(chassisGeo, chassisMat);
-      cubeSatGroup.add(chassis);
+      cubeSatGroup.add(new THREE.Mesh(chassisGeo, chassisMat));
 
       const edges = new THREE.EdgesGeometry(chassisGeo);
-      const lineMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, linewidth: 2 });
-      cubeSatGroup.add(new THREE.LineSegments(edges, lineMat));
+      cubeSatGroup.add(new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x00f0ff, linewidth: 2 })));
 
       const panelGeo = new THREE.PlaneGeometry(1.7, 1.7);
       const panelMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, emissive: 0x082f49, metalness: 0.9, roughness: 0.15 });
@@ -1268,8 +1184,7 @@
       ceramicSquare.position.y = 1.15;
       cubeSatGroup.add(ceramicSquare);
 
-      const whipGeo = new THREE.CylinderGeometry(0.015, 0.015, 1.2);
-      const whip = new THREE.Mesh(whipGeo, new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+      const whip = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 1.2), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
       whip.position.set(-0.85, 1.55, -0.85);
       whip.rotation.z = 0.2;
       cubeSatGroup.add(whip);
@@ -1329,7 +1244,7 @@
 
     function initPfd() {
       resizePfd();
-      drawPfd(0, 0, 84, 0, 0);
+      drawPfd(0, 0, 15, 0, 0);
     }
     window.addEventListener('resize', resizePfd);
 
@@ -1375,7 +1290,6 @@
       }
       ctx.restore();
 
-      // Boresight symbol
       ctx.strokeStyle = '#facc15';
       ctx.lineWidth = 3;
       ctx.beginPath();
@@ -1419,12 +1333,12 @@
       pitch: Array(MAX_POINTS).fill(0),
       roll: Array(MAX_POINTS).fill(0),
       yaw: Array(MAX_POINTS).fill(0),
-      alt: Array(MAX_POINTS).fill(84.0),
+      alt: Array(MAX_POINTS).fill(15.0),
       pressure: Array(MAX_POINTS).fill(1013.2),
-      dhtTemp: Array(MAX_POINTS).fill(29.1),
-      dhtHum: Array(MAX_POINTS).fill(62.0),
+      dhtTemp: Array(MAX_POINTS).fill(24.5),
+      dhtHum: Array(MAX_POINTS).fill(50.0),
       speed: Array(MAX_POINTS).fill(0.0),
-      power: Array(MAX_POINTS).fill(7.95)
+      power: Array(MAX_POINTS).fill(7.84)
     };
 
     let activeGraphKey = 'altitude';
@@ -1518,7 +1432,7 @@
         subtitle.innerText = 'LI-ION DUAL CELL BUS VOLTAGE RAIL (V)';
       } else {
         title.innerText = 'BMP280 ALTITUDE TRAJECTORY (LIVE RECEPTION)';
-        subtitle.innerText = 'SAMPLING RATE: 1000ms // DOWNLINK STREAM';
+        subtitle.innerText = 'SAMPLING RATE: 250ms // DOWNLINK STREAM';
       }
 
       if (isMultiGridActive) toggleMultiGrid();
@@ -1595,7 +1509,7 @@
       gridCharts.power.update('none');
     }
 
-    // 8. TARE / GROUND ZERO CALIBRATION & CSV RECORDER
+    // 8. TARE & CSV RECORDER
     let altTareOffset = 0.0;
     let isCsvRecording = false;
     let recordedTelemetry = [];
@@ -1619,47 +1533,81 @@
         annunRec.className = 'annun-box annun-warning';
         annunRec.innerText = 'BLACKBOX: LOGGING';
         recordedTelemetry = [];
-        const logLine = document.createElement('div');
-        logLine.innerText = `[RECORDER] Blackbox recording started. Capturing all avionics channels...`;
-        rawLog.appendChild(logLine);
       } else {
         recDot.className = 'w-2 h-2 rounded-full bg-slate-500';
         recBtnText.innerText = 'REC CSV';
         annunRec.className = 'annun-box annun-nominal';
         annunRec.innerText = 'BLACKBOX: IDLE';
-        const logLine = document.createElement('div');
-        logLine.innerText = `[RECORDER] Blackbox paused. ${recordedTelemetry.length} frames ready for export.`;
-        rawLog.appendChild(logLine);
       }
     }
 
     function exportCsvData() {
       if (recordedTelemetry.length === 0) {
-        alert("No flight data recorded yet! Click 'REC CSV' or engage Flight Sim to record telemetry.");
+        alert("No flight data recorded yet! Click 'REC CSV' or stream live data.");
         return;
       }
-
-      let csvContent = "Timestamp,MET,PacketSeq,Pitch_deg,Roll_deg,Yaw_deg,Altitude_m,Pressure_hPa,Temp_C,Humidity_pct,GPS_Lat,GPS_Lon,GPS_Speed_kmh,VSI_ms,Battery_V,FlightPhase\n";
+      let csvContent = "Timestamp,MET,PacketSeq,Pitch,Roll,Yaw,Altitude,Pressure,Temp,Humidity,Lat,Lon,Speed,VSI,Voltage,Phase\n";
       recordedTelemetry.forEach(r => {
         csvContent += `${r.time},${r.met},${r.seq},${r.pitch},${r.roll},${r.yaw},${r.alt},${r.press},${r.temp},${r.hum},${r.lat},${r.lon},${r.speed},${r.vsi},${r.voltage},${r.phase}\n`;
       });
-
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.setAttribute("href", url);
-      link.setAttribute("download", `Orbitra26_FlightLog_${Date.now()}.csv`);
+      link.href = url;
+      link.download = `Orbitra26_FlightLog_${Date.now()}.csv`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
-    // 9. WEB SERIAL DIRECT HARDWARE BRIDGE (GROUND BASE ESP32)
+    // ========================================================
+    // 9. NATIVE ADAPTER FOR YOUR RECEIVER ESP32 JSON STREAM
+    // ========================================================
+    function normalizeTelemetryPayload(raw) {
+      if (raw.pkt !== undefined || raw.vbat !== undefined || raw.roll !== undefined) {
+        return {
+          pkt: raw.pkt,
+          time: raw.time,
+          rssi: raw.rssi !== undefined ? Number(raw.rssi) : -65,
+          mpu: {
+            pitch: raw.pitch !== undefined ? Number(raw.pitch) : 0,
+            roll: raw.roll !== undefined ? Number(raw.roll) : 0,
+            yaw: raw.yaw !== undefined ? Number(raw.yaw) : 0,
+            ax: raw.ax !== undefined ? Number(raw.ax) : 0,
+            ay: raw.ay !== undefined ? Number(raw.ay) : 0,
+            az: raw.az !== undefined ? Number(raw.az) : 1
+          },
+          bmp: {
+            altitude: raw.alt !== undefined ? Number(raw.alt) : 0,
+            pressure: raw.press !== undefined ? Number(raw.press) : 1013.25,
+            temp: raw.temp !== undefined ? Number(raw.temp) : 24.5
+          },
+          dht: {
+            temp: raw.tempDht !== undefined ? Number(raw.tempDht) : (raw.temp !== undefined ? Number(raw.temp) : 24.5),
+            humidity: raw.hum !== undefined ? Number(raw.hum) : 50.0
+          },
+          gps: {
+            lat: raw.lat !== undefined ? Number(raw.lat) : 28.6139,
+            lon: raw.lng !== undefined ? Number(raw.lng) : 77.2090,
+            speed: raw.spd !== undefined ? Number(raw.spd) : 0.0,
+            alt: raw.galt !== undefined ? Number(raw.galt) : (raw.alt !== undefined ? Number(raw.alt) : 0.0),
+            sats: raw.sats !== undefined ? Number(raw.sats) : 0,
+            fix: raw.fix !== undefined ? Number(raw.fix) : 0
+          },
+          eps: {
+            voltage: raw.vbat !== undefined ? Number(raw.vbat) : 7.84
+          }
+        };
+      }
+      return raw;
+    }
+
+    // 10. WEB SERIAL DIRECT HARDWARE BRIDGE
     let serialPort = null;
 
     async function connectUsbSerial() {
       if (!("serial" in navigator)) {
-        alert("Web Serial API is not supported in this browser. Please open this page in Google Chrome, Brave, or Microsoft Edge!");
+        alert("Web Serial API is not supported in this browser. Please open in Google Chrome, Brave, or Edge!");
         return;
       }
 
@@ -1676,13 +1624,11 @@
         logLine.innerHTML = `<span class="text-emerald-400 font-bold">[HARDWARE_LINK]</span> Web Serial connected to Ground ESP32 @ 115200 baud!`;
         rawLog.appendChild(logLine);
 
-        // Turn off synthetic simulator so hardware data takes over
         if (isSimActive) toggleFlightSim();
 
         const decoder = new TextDecoderStream();
         serialPort.readable.pipeTo(decoder.writable);
-        const inputStream = decoder.readable;
-        const reader = inputStream.getReader();
+        const reader = decoder.readable.getReader();
 
         let buffer = "";
         while (true) {
@@ -1694,86 +1640,49 @@
 
           for (const line of lines) {
             const cleanLine = line.trim();
-            if (cleanLine.startsWith("{") && cleanLine.endsWith("}")) {
+            const jsonStart = cleanLine.indexOf('{');
+            const jsonEnd = cleanLine.lastIndexOf('}');
+
+            if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+              const jsonSubstring = cleanLine.substring(jsonStart, jsonEnd + 1);
               try {
-                const telemetryPayload = JSON.parse(cleanLine);
+                const rawPayload = JSON.parse(jsonSubstring);
+                
+                // Handle Heartbeat status messages gracefully
+                if (rawPayload.status) {
+                  const statusLine = document.createElement('div');
+                  statusLine.innerHTML = `<span class="text-amber-300 font-bold">[STATUS]</span> ${rawPayload.status} (MAC: ${rawPayload.mac || 'N/A'})`;
+                  rawLog.appendChild(statusLine);
+                  rawLog.scrollTop = rawLog.scrollHeight;
+                  continue;
+                }
+
+                const telemetryPayload = normalizeTelemetryPayload(rawPayload);
                 updateDashboardTelemetry(telemetryPayload);
               } catch (err) {
-                console.warn("Corrupt frame:", cleanLine);
+                console.warn("JSON Parse:", jsonSubstring);
               }
+            } else if (cleanLine.length > 0 && !cleanLine.startsWith("=")) {
+              // Print boot logs
+              const bootLog = document.createElement('div');
+              bootLog.innerText = `[SERIAL] ${cleanLine}`;
+              rawLog.appendChild(bootLog);
+              rawLog.scrollTop = rawLog.scrollHeight;
             }
           }
         }
       } catch (err) {
         console.error("Serial connection error:", err);
-        const logLine = document.createElement('div');
-        logLine.innerHTML = `<span class="text-rose-400 font-bold">[HARDWARE_ERR]</span> USB Serial cancelled or disconnected.`;
-        rawLog.appendChild(logLine);
       }
-    }
-
-    // 10. TELECOMMAND UPLINK & ANOMALY INJECTION HANDLERS
-    let downlinkRateHz = 10;
-    let activeAnomaly = null;
-
-    function sendUplinkCommand(cmd) {
-      const logLine = document.createElement('div');
-      if (cmd === 'PING') {
-        const pingMs = Math.floor(Math.random() * 8 + 10);
-        logLine.innerHTML = `<span class="text-cyan-300 font-bold">[UPLINK_TX]</span> CMD: ECHO_PING &rarr; ACK RECEIVED (${pingMs}ms) [LINK HEALTHY]`;
-        document.getElementById('pingVal').innerText = `${pingMs} ms`;
-      } else if (cmd === 'BUZZER') {
-        logLine.innerHTML = `<span class="text-amber-300 font-bold">[UPLINK_TX]</span> CMD: LOCATOR_BEACON &rarr; CUBESAT PIEZO BUZZER ENGAGED (2400Hz)`;
-        playAlertTone();
-      } else if (cmd === 'RATE') {
-        downlinkRateHz = (downlinkRateHz === 10) ? 5 : (downlinkRateHz === 5) ? 1 : 10;
-        logLine.innerHTML = `<span class="text-emerald-300 font-bold">[UPLINK_TX]</span> CMD: SET_DOWNLINK_RATE &rarr; NOW ${downlinkRateHz} Hz`;
-        document.getElementById('espStatus').innerText = `NODE 1 ↔ NODE 2 [${downlinkRateHz}Hz]`;
-      } else if (cmd === 'REBOOT') {
-        logLine.innerHTML = `<span class="text-rose-400 font-bold">[UPLINK_TX]</span> CMD: SOFT_RESET &rarr; ESP32 PAYLOAD WATCHDOG RESET ACK`;
-        playAlertTone();
-      }
-      rawLog.appendChild(logLine);
-      rawLog.scrollTop = rawLog.scrollHeight;
-    }
-
-    function injectAnomaly(type) {
-      activeAnomaly = (activeAnomaly === type) ? null : type;
-      const logLine = document.createElement('div');
-
-      if (activeAnomaly === 'I2C_FAULT') {
-        logLine.innerHTML = `<span class="text-rose-400 font-bold">[ANOMALY_INJECTED]</span> I2C BUS HANG: MPU6050 & BMP280 SDA/SCL TIMEOUT!`;
-        document.getElementById('annun-imu').className = 'annun-box annun-critical';
-        document.getElementById('annun-imu').innerText = 'IMU: I2C BUS HANG';
-        playAlertTone();
-      } else if (activeAnomaly === 'TUMBLE_FAIL') {
-        logLine.innerHTML = `<span class="text-rose-400 font-bold">[ANOMALY_INJECTED]</span> SEVERE TUMBLE: ANGULAR RATE > 300°/s! G-FORCE EXCEEDED.`;
-        document.getElementById('annun-imu').className = 'annun-box annun-critical';
-        document.getElementById('annun-imu').innerText = 'IMU: HIGH-G TUMBLE';
-        playAlertTone();
-      } else if (activeAnomaly === 'LOW_BATT') {
-        logLine.innerHTML = `<span class="text-rose-400 font-bold">[ANOMALY_INJECTED]</span> POWER DROP: BMS VOLTAGE < 6.8V! BUCK CONVERTER INSTABILITY.`;
-        document.getElementById('annun-eps').className = 'annun-box annun-critical';
-        document.getElementById('annun-eps').innerText = 'EPS: LOW VOLTAGE CRASH';
-        playAlertTone();
-      } else {
-        logLine.innerHTML = `<span class="text-emerald-400 font-bold">[ANOMALY_CLEARED]</span> Diagnostics: Systems nominal. All annunciators cleared.`;
-        document.getElementById('annun-imu').className = 'annun-box annun-nominal';
-        document.getElementById('annun-imu').innerText = 'IMU: ATTITUDE OK';
-        document.getElementById('annun-eps').className = 'annun-box annun-nominal';
-        document.getElementById('annun-eps').innerText = 'EPS: 7.92V OK';
-      }
-      rawLog.appendChild(logLine);
-      rawLog.scrollTop = rawLog.scrollHeight;
     }
 
     // 11. TELEMETRY PROCESSING ENGINE & STATE MACHINE
     let isSimActive = false;
     let simTimer = 0;
-    let packetSeqCounter = 142;
-    let lastRawAltitude = 84.0;
-    let prevAltitude = 84.0;
-    let peakAltVal = 84.0;
+    let packetSeqCounter = 0;
+    let lastRawAltitude = 15.0;
+    let prevAltitude = 15.0;
+    let peakAltVal = 15.0;
     let peakVsiVal = 0.0;
     let peakGVal = 1.0;
     let apogeeTimestampStr = "STANDBY";
@@ -1783,18 +1692,18 @@
       const phases = ['pad', 'boost', 'apogee', 'descent', 'land'];
       let activePhase = 'pad';
 
-      if (vsi > 3.0 && alt > 95) {
+      if (vsi > 2.5 && alt > 25) {
         activePhase = 'boost';
-      } else if (vsi < 1.0 && vsi > -1.5 && alt > 150) {
+      } else if (vsi < 1.0 && vsi > -1.5 && alt > 50) {
         activePhase = 'apogee';
         if (apogeeTimestampStr === "STANDBY") {
           apogeeTimestampStr = `T+${Math.floor(simTimer/60).toString().padStart(2,'0')}:${(simTimer%60).toString().padStart(2,'0')}`;
           document.getElementById('apogeeTime').innerText = apogeeTimestampStr;
           playApogeeChime();
         }
-      } else if (vsi <= -1.5 && alt > 90) {
+      } else if (vsi <= -1.5 && alt > 20) {
         activePhase = 'descent';
-      } else if (alt <= 86 && simTimer > 20) {
+      } else if (alt <= 18 && simTimer > 20) {
         activePhase = 'land';
       }
 
@@ -1802,35 +1711,11 @@
       phases.forEach(p => {
         const el = document.getElementById(`phase-${p}`);
         if (el) {
-          if (p === activePhase) {
-            el.className = "p-1.5 rounded border border-cyan-400 bg-cyan-950/90 text-cyan-300 shadow-[0_0_8px_rgba(0,240,255,0.4)]";
-          } else {
-            el.className = "p-1.5 rounded border border-slate-800 bg-slate-900/60 text-slate-500";
-          }
+          el.className = (p === activePhase) 
+            ? "p-1.5 rounded border border-cyan-400 bg-cyan-950/90 text-cyan-300 shadow-[0_0_8px_rgba(0,240,255,0.4)]"
+            : "p-1.5 rounded border border-slate-800 bg-slate-900/60 text-slate-500";
         }
       });
-
-      const chuteStatus = document.getElementById('chuteStatus');
-      const annunChute = document.getElementById('annun-chute');
-
-      if (activePhase === 'descent') {
-        if (Math.abs(vsi) >= 5 && Math.abs(vsi) <= 10) {
-          chuteStatus.innerText = "CHUTE DEPLOYED (NOMINAL)";
-          chuteStatus.className = "text-emerald-400 font-bold";
-          annunChute.className = "annun-box annun-nominal";
-          annunChute.innerText = "CHUTE: NOMINAL 6.8m/s";
-        } else if (Math.abs(vsi) > 10) {
-          chuteStatus.innerText = "EXCESSIVE DESCENT SPEED";
-          chuteStatus.className = "text-rose-400 font-bold animate-pulse";
-          annunChute.className = "annun-box annun-critical";
-          annunChute.innerText = "CHUTE: OVERLIMIT / FREEFALL";
-        }
-      } else {
-        chuteStatus.innerText = "READY (5-10 m/s)";
-        chuteStatus.className = "text-emerald-400 font-bold";
-        annunChute.className = "annun-box annun-nominal";
-        annunChute.innerText = "CHUTE: ARMED";
-      }
     }
 
     function toggleFlightSim() {
@@ -1854,27 +1739,24 @@
         simStatusText.innerText = 'SIM: OFF';
         simIndicatorBadge.className = 'text-[9px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 uppercase';
         simIndicatorBadge.innerText = 'STANDBY (STABLE)';
-
-        updateDashboardTelemetry({
-          mpu: { pitch: 0, roll: 0, yaw: 0 },
-          bmp: { altitude: 84.0, pressure: 1013.2, temp: 28.4 },
-          dht: { temp: 29.1, humidity: 62.0 },
-          gps: { speed: 0.0, lat: MMMUT_COORDS[0], lon: MMMUT_COORDS[1], alt: 86.2, sats: 9 },
-          eps: { voltage: 7.95 }
-        });
       }
     }
 
     function updateDashboardTelemetry(payload) {
-      packetSeqCounter++;
-      document.getElementById('packetSeq').innerText = `${packetSeqCounter}/${packetSeqCounter}`;
+      packetSeqCounter = payload.pkt !== undefined ? payload.pkt : (packetSeqCounter + 1);
+      document.getElementById('packetSeq').innerText = `#${packetSeqCounter}`;
       playTelemetryBeep();
+
+      if (payload.rssi !== undefined) {
+        document.getElementById('rssiVal').innerText = `${payload.rssi} dBm`;
+      }
 
       lastRawAltitude = payload.bmp.altitude;
       const relativeAlt = payload.bmp.altitude - altTareOffset;
-      const vsi = (payload.bmp.altitude - prevAltitude) / 1.0;
+      const vsi = (payload.bmp.altitude - prevAltitude) / 0.25; // 250ms cadence
       prevAltitude = payload.bmp.altitude;
 
+      // Peak Envelope Memory
       if (relativeAlt > peakAltVal) {
         peakAltVal = relativeAlt;
         document.getElementById('peakAlt').innerText = `${peakAltVal.toFixed(1)} m`;
@@ -1884,6 +1766,16 @@
         document.getElementById('peakVsi').innerText = `${peakVsiVal >= 0 ? '+' : ''}${peakVsiVal.toFixed(1)} m/s`;
       }
 
+      // Dynamic G-force Load from Accel
+      if (payload.mpu.ax !== undefined) {
+        const gLoad = Math.sqrt(payload.mpu.ax * payload.mpu.ax + payload.mpu.ay * payload.mpu.ay + payload.mpu.az * payload.mpu.az);
+        if (gLoad > peakGVal) {
+          peakGVal = gLoad;
+          document.getElementById('peakG').innerText = `${peakGVal.toFixed(2)} G`;
+        }
+      }
+
+      // VSI Badge Display
       const vsiValEl = document.getElementById('vsiVal');
       const vsiBadge = document.getElementById('vsiBadge');
       vsiValEl.innerText = `${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)} m/s`;
@@ -1900,12 +1792,14 @@
 
       updateFlightState(payload.bmp.altitude, vsi);
 
+      // 3D Three.js Orientation
       if (cubeSatGroup) {
         cubeSatGroup.rotation.x = (payload.mpu.pitch * Math.PI) / 180;
         cubeSatGroup.rotation.y = (payload.mpu.yaw * Math.PI) / 180;
         cubeSatGroup.rotation.z = (payload.mpu.roll * Math.PI) / 180;
       }
 
+      // PFD & Numerical HUD
       drawPfd(payload.mpu.pitch, payload.mpu.roll, relativeAlt, payload.gps.speed, payload.mpu.yaw);
       document.getElementById('pfdSpeedVal').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
       document.getElementById('pfdAltVal').innerText = `${relativeAlt.toFixed(1)} m`;
@@ -1919,14 +1813,39 @@
       document.getElementById('pressureVal').innerText = `${payload.bmp.pressure.toFixed(1)} hPa`;
       document.getElementById('bmpTempVal').innerText = `${payload.bmp.temp.toFixed(1)} °C`;
       document.getElementById('dhtTempVal').innerText = `${payload.dht.temp.toFixed(1)}°C`;
-      document.getElementById('dhtHumVal').innerText = `${payload.dht.humidity.toFixed(1)}%`;
+      document.getElementById('dhtHumVal').innerText = `${payload.dht.humidity.toFixed(0)}%`;
       document.getElementById('gpsSpeed').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
       document.getElementById('gpsLat').innerText = `${payload.gps.lat.toFixed(4)}° N`;
       document.getElementById('gpsLon').innerText = `${payload.gps.lon.toFixed(4)}° E`;
       document.getElementById('gpsAltVal').innerText = `${payload.gps.alt.toFixed(1)} m`;
+      document.getElementById('gpsSats').innerText = `${payload.gps.sats} LOCKED`;
+
+      // GPS Fix status label
+      const fixBadge = document.getElementById('gpsFixBadge');
+      if (payload.gps.fix === 2) {
+        fixBadge.innerText = "GPS: 3D FIX (OUTDOORS)";
+        fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40";
+      } else if (payload.gps.fix === 1) {
+        fixBadge.innerText = "GPS: 2D ESTIMATE";
+        fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40";
+      } else {
+        fixBadge.innerText = "GPS: STANDBY (NO FIX)";
+        fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-500/40";
+      }
+
+      // Battery percentage calculation (2S Li-Ion: 6.4V to 8.4V)
+      const vbat = payload.eps.voltage;
+      const pct = Math.min(100, Math.max(0, Math.round(((vbat - 6.4) / (8.4 - 6.4)) * 100)));
+      document.getElementById('packPct').innerText = `${pct}% (${vbat.toFixed(2)}V)`;
+      document.getElementById('packBar').style.width = `${pct}%`;
+
+      // Annunciator Updates
+      document.getElementById('annun-eps').innerText = `EPS: ${vbat.toFixed(2)}V ${vbat < 6.8 ? 'LOW' : 'OK'}`;
+      document.getElementById('annun-eps').className = vbat < 6.8 ? "annun-box annun-warning" : "annun-box annun-nominal";
 
       updateGpsMap(payload.gps.lat, payload.gps.lon);
 
+      // Graphs
       historyLabels.shift();
       historyLabels.push(`T+${packetSeqCounter}s`);
 
@@ -1938,7 +1857,7 @@
       dataHist.dhtTemp.shift(); dataHist.dhtTemp.push(payload.dht.temp);
       dataHist.dhtHum.shift(); dataHist.dhtHum.push(payload.dht.humidity);
       dataHist.speed.shift(); dataHist.speed.push(payload.gps.speed);
-      dataHist.power.shift(); dataHist.power.push(payload.eps.voltage);
+      dataHist.power.shift(); dataHist.power.push(vbat);
 
       if (mainTelemetryChart) {
         mainTelemetryChart.data.labels = historyLabels;
@@ -1963,104 +1882,39 @@
 
       if (isMultiGridActive) updateMultiGridCharts();
 
-      const metStr = `T+${Math.floor(simTimer/60).toString().padStart(2,'0')}:${(simTimer%60).toString().padStart(2,'0')}`;
-      document.getElementById('metTimer').innerText = metStr;
+      // MET Timer
+      if (payload.time !== undefined) {
+        const sec = Math.floor(payload.time / 1000);
+        document.getElementById('metTimer').innerText = `T+${Math.floor(sec/60).toString().padStart(2,'0')}:${(sec%60).toString().padStart(2,'0')}`;
+      }
 
       if (isCsvRecording) {
         recordedTelemetry.push({
           time: new Date().toISOString(),
-          met: metStr,
+          met: document.getElementById('metTimer').innerText,
           seq: packetSeqCounter,
           pitch: payload.mpu.pitch.toFixed(2),
           roll: payload.mpu.roll.toFixed(2),
           yaw: payload.mpu.yaw.toFixed(2),
           alt: relativeAlt.toFixed(2),
           press: payload.bmp.pressure.toFixed(2),
-          temp: payload.dht.temp.toFixed(2),
+          temp: payload.bmp.temp.toFixed(2),
           hum: payload.dht.humidity.toFixed(2),
           lat: payload.gps.lat.toFixed(6),
           lon: payload.gps.lon.toFixed(6),
           speed: payload.gps.speed.toFixed(2),
           vsi: vsi.toFixed(2),
-          voltage: payload.eps.voltage.toFixed(2),
+          voltage: vbat.toFixed(2),
           phase: currentFlightPhase
         });
       }
 
       const logLine = document.createElement('div');
-      logLine.innerText = `[${metStr}][PKT_${packetSeqCounter}] ALT:${relativeAlt.toFixed(1)}m VSI:${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)}m/s PHASE:${currentFlightPhase} V:${payload.eps.voltage.toFixed(2)}V`;
+      logLine.innerText = `[PKT_${packetSeqCounter}] R:${payload.mpu.roll.toFixed(0)} P:${payload.mpu.pitch.toFixed(0)} ALT:${relativeAlt.toFixed(1)}m P:${payload.bmp.pressure.toFixed(0)}hPa VBAT:${vbat.toFixed(2)}V RSSI:${payload.rssi}`;
       rawLog.appendChild(logLine);
       rawLog.scrollTop = rawLog.scrollHeight;
       if (rawLog.children.length > 25) rawLog.removeChild(rawLog.children[0]);
     }
-
-    // 1-Second Telemetry Clock (Realistic CanSat Launch Profile + Anomaly Injector)
-    let flightAlt = 84.0;
-    let gpsLatCurrent = MMMUT_COORDS[0];
-    let gpsLonCurrent = MMMUT_COORDS[1];
-
-    setInterval(() => {
-      if (!isSimActive) return;
-
-      simTimer++;
-      let pitchSim = 0, rollSim = 0, yawSim = (simTimer * 7.5) % 360, speedSim = 0;
-      let voltageSim = 7.92 - (simTimer * 0.001);
-
-      if (simTimer < 15) {
-        flightAlt += 11.2;
-        pitchSim = 12.0 + Math.sin(simTimer) * 4.0;
-        rollSim = Math.cos(simTimer) * 5.0;
-        speedSim = 24.5;
-        gpsLatCurrent += 0.00008;
-        gpsLonCurrent += 0.00006;
-      } else if (simTimer < 22) {
-        flightAlt += 1.5;
-        pitchSim = Math.sin(simTimer * 2) * 28.0;
-        rollSim = Math.cos(simTimer * 2) * 24.0;
-        speedSim = 8.2;
-      } else if (flightAlt > 84.0) {
-        flightAlt -= 6.8;
-        pitchSim = Math.sin(simTimer) * 4.0;
-        rollSim = Math.cos(simTimer) * 3.5;
-        speedSim = 4.5;
-        gpsLatCurrent += 0.00003;
-        gpsLonCurrent += 0.00004;
-      } else {
-        flightAlt = 84.0;
-        speedSim = 0.0;
-      }
-
-      // Injected Anomaly Overrides
-      if (activeAnomaly === 'TUMBLE_FAIL') {
-        pitchSim = Math.sin(simTimer * 8) * 65.0;
-        rollSim = Math.cos(simTimer * 8) * 80.0;
-      } else if (activeAnomaly === 'LOW_BATT') {
-        voltageSim = 6.42;
-      }
-
-      const simPayload = {
-        mpu: { pitch: pitchSim, roll: rollSim, yaw: yawSim },
-        bmp: {
-          altitude: flightAlt,
-          pressure: 1013.25 - (flightAlt / 8.5),
-          temp: 28.1 + Math.random() * 0.4
-        },
-        dht: {
-          temp: 29.0 + Math.random() * 0.3,
-          humidity: 61.5 + Math.random() * 0.8
-        },
-        gps: {
-          lat: gpsLatCurrent,
-          lon: gpsLonCurrent,
-          speed: speedSim,
-          alt: flightAlt + 2.1,
-          sats: 9
-        },
-        eps: { voltage: voltageSim }
-      };
-
-      updateDashboardTelemetry(simPayload);
-    }, 1000);
   </script>
 </body>
 </html>
