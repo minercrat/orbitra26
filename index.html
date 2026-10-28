@@ -288,9 +288,9 @@
         </div>
       </div>
 
-      <!-- 2D ORBITING SQUARE BUTTON -->
+      <!-- 2D ORBITING BUTTON -->
       <div class="orbit-button-container">
-        <button id="enterDashboardBtn" onclick="launchDashboard()" class="w-36 h-36 md:w-44 md:h-44 rounded-2xl bg-slate-950/40 opacity-65 hover:opacity-100 backdrop-blur-md border-2 border-cyan-400/70 text-cyan-300 font-bold shadow-[0_0_25px_rgba(0,240,255,0.35)] hover:shadow-[0_0_55px_rgba(0,240,255,0.85)] hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center p-3 text-center group cursor-pointer relative overflow-hidden">
+        <button id="enterDashboardBtn" onclick="launchDashboard()" class="w-36 h-36 md:w-44 md:h-44 rounded-2xl bg-slate-950/40 opacity-75 hover:opacity-100 backdrop-blur-md border-2 border-cyan-400/70 text-cyan-300 font-bold shadow-[0_0_25px_rgba(0,240,255,0.35)] hover:shadow-[0_0_55px_rgba(0,240,255,0.85)] hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center p-3 text-center group cursor-pointer relative overflow-hidden">
           <span class="absolute top-1.5 left-1.5 w-3 h-3 border-t-2 border-l-2 border-cyan-400"></span>
           <span class="absolute top-1.5 right-1.5 w-3 h-3 border-t-2 border-r-2 border-cyan-400"></span>
           <span class="absolute bottom-1.5 left-1.5 w-3 h-3 border-b-2 border-l-2 border-cyan-400"></span>
@@ -312,9 +312,7 @@
 
     <footer class="w-full max-w-6xl flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 border-t border-slate-800/80 py-4 gap-2">
       <div>Mission Operator: <span class="text-amber-300 font-bold">TEAM ANVESHAK</span> • ESP32 AVIONICS LINK</div>
-      <div class="text-slate-400">
-        Sensors: MPU6050 • BMP280 • DHT11 • NEO-6M GPS
-      </div>
+      <div class="text-slate-400">Sensors: MPU6050 • BMP280 • DHT11 • NEO-6M GPS</div>
     </footer>
   </section>
 
@@ -342,7 +340,7 @@
       <!-- Action Toolbar -->
       <div class="flex items-center flex-wrap gap-2 text-xs">
         
-        <!-- DIRECT USB SERIAL HARDWARE LINK (GROUND BASE ESP32) -->
+        <!-- DIRECT USB SERIAL LINK -->
         <button id="usbConnectBtn" onclick="connectUsbSerial()" class="px-3 py-1.5 rounded bg-emerald-950 border border-emerald-400 text-emerald-300 hover:bg-emerald-500 hover:text-black flex items-center gap-1.5 transition-all shadow-[0_0_10px_rgba(16,185,129,0.4)]">
           <i data-lucide="usb" class="w-3.5 h-3.5"></i>
           <span id="usbBtnText" class="font-bold text-[11px]">CONNECT USB</span>
@@ -359,7 +357,7 @@
           <span class="orbitron font-bold text-[11px]" id="simStatusText">SIM: OFF</span>
         </button>
 
-        <button onclick="tareAltimeter()" class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 hover:border-amber-400 text-amber-300 flex items-center gap-1 transition-colors" title="Set Launch Pad Ground Reference">
+        <button onclick="tareAltimeter()" class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 hover:border-amber-400 text-amber-300 flex items-center gap-1 transition-colors" title="Set Ground Reference">
           <i data-lucide="scale" class="w-3.5 h-3.5"></i>
           <span class="font-bold text-[11px]">TARE ALT</span>
         </button>
@@ -368,6 +366,7 @@
           <span id="recDot" class="w-2 h-2 rounded-full bg-rose-500"></span>
           <span id="recBtnText" class="font-bold text-[11px]">REC CSV</span>
         </button>
+        
         <button onclick="exportCsvData()" class="px-2.5 py-1.5 rounded bg-cyan-950 border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500 hover:text-black flex items-center gap-1 transition-colors" title="Download Excel/CSV Log">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
         </button>
@@ -448,7 +447,7 @@
       </div>
     </div>
 
-    <!-- Main Telemetry Grid (Part 1: 3D Sat & PFD) -->
+    <!-- Main Telemetry Grid (3D Sat & PFD) -->
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
 
       <!-- 1. MPU6050 3D CUBESAT -->
@@ -521,10 +520,10 @@
 
     </div>
 
-    <!-- Main Telemetry Grid (Part 2: Sensors & Flight Peaks - Balanced 3 Column Row) -->
+    <!-- Sensors & Flight Peaks (3 Columns) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-      <!-- 3. BMP280 + VERTICAL SPEED INDICATOR (VSI) -->
+      <!-- 3. BMP280 + VSI -->
       <div class="hud-card p-4 rounded-xl flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1.5">
           <span class="orbitron text-xs font-bold text-cyan-300">BMP280 // ALTIMETRY & VSI</span>
@@ -558,7 +557,7 @@
         </div>
       </div>
 
-      <!-- 4. FLIGHT PEAK MEMORY (SEPARATE MAX & CURRENT SPEEDS) -->
+      <!-- 4. FLIGHT PEAK MEMORY -->
       <div class="hud-card p-4 rounded-xl flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1.5">
           <span class="orbitron text-xs font-bold text-cyan-300">FLIGHT PEAK MEMORY</span>
@@ -571,19 +570,16 @@
             <span id="peakAlt" class="text-cyan-300 font-bold font-mono">0.0 m</span>
           </div>
           
-          <!-- SEPARATED MAX VERTICAL SPEED -->
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-amber-400 text-[11px] font-bold">MAX VERTICAL SPEED:</span>
             <span id="peakVsi" class="text-amber-300 font-bold font-mono">+0.0 m/s</span>
           </div>
 
-          <!-- SEPARATED CURRENT GPS / HORIZONTAL SPEED -->
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-slate-300 text-[11px]">CURRENT GPS SPEED:</span>
             <span id="currentGpsSpeedVal" class="text-cyan-300 font-bold font-mono">0.0 km/h</span>
           </div>
 
-          <!-- SEPARATED CURRENT VERTICAL SPEED -->
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-slate-300 text-[11px]">CURRENT VERT SPEED:</span>
             <span id="currentVertSpeedVal" class="text-emerald-400 font-bold font-mono">+0.0 m/s</span>
@@ -606,7 +602,7 @@
         </div>
       </div>
 
-      <!-- 5. DHT11 (CHASSIS ENVIRONMENT) -->
+      <!-- 5. DHT11 ENVIRONMENT -->
       <div class="hud-card p-4 rounded-xl flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1.5">
           <span class="orbitron text-xs font-bold text-cyan-300">DHT11 // ENVIRONMENT</span>
@@ -616,7 +612,7 @@
         <div class="grid grid-cols-2 gap-2 my-2">
           <div class="flex flex-col items-center justify-center p-2.5 bg-slate-900/90 rounded border border-slate-800">
             <i data-lucide="thermometer" class="w-4 h-4 text-amber-400 mb-0.5"></i>
-            <div class="text-[10px] text-slate-400 uppercase">Temperature</div>
+            <div class="text-[10px] text-slate-400 uppercase">Ambient Temp</div>
             <div id="dhtTempVal" class="orbitron text-lg font-bold text-amber-400">24.5°C</div>
           </div>
           <div class="flex flex-col items-center justify-center p-2.5 bg-slate-900/90 rounded border border-slate-800">
@@ -634,7 +630,7 @@
 
     </div>
 
-    <!-- LEAFLET.JS RECOVERY GPS MAP -->
+    <!-- LEAFLET GPS RECOVERY MAP -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
       <div class="hud-card p-4 rounded-xl lg:col-span-8 flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2 mb-2">
@@ -653,11 +649,11 @@
         <div class="grid grid-cols-4 gap-2 text-center text-xs mt-2">
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">LATITUDE</div>
-            <div id="gpsLat" class="text-cyan-300 font-bold font-mono">28.6139° N</div>
+            <div id="gpsLat" class="text-cyan-300 font-bold font-mono">26.7314° N</div>
           </div>
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">LONGITUDE</div>
-            <div id="gpsLon" class="text-cyan-300 font-bold font-mono">77.2090° E</div>
+            <div id="gpsLon" class="text-cyan-300 font-bold font-mono">83.4332° E</div>
           </div>
           <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">GROUND SPEED</div>
@@ -706,9 +702,9 @@
         <div class="flex flex-wrap items-center justify-between border-b border-cyan-500/20 pb-2.5 gap-2">
           <div>
             <span id="graphTitle" class="orbitron text-xs md:text-sm font-bold text-cyan-300">
-              BMP280 ALTITUDE TRAJECTORY (LIVE RECEPTION)
+              MPU6050 6-AXIS ATTITUDE & GYRO (PITCH / ROLL / YAW)
             </span>
-            <span id="graphSubtitle" class="block text-[10px] text-slate-400">SAMPLING RATE: 250ms // TEAM ANVESHAK DOWNLINK STREAM</span>
+            <span id="graphSubtitle" class="block text-[10px] text-slate-400">REAL-TIME 3-AXIS DEGREE VECTOR STREAM // TEAM ANVESHAK</span>
           </div>
 
           <button id="toggleGridBtn" onclick="toggleMultiGrid()" class="text-xs px-3 py-1 rounded bg-slate-900 border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500 hover:text-black flex items-center gap-1.5 transition-colors">
@@ -718,11 +714,11 @@
         </div>
 
         <div class="flex items-center flex-wrap gap-1.5 my-2.5 text-xs">
-          <button onclick="selectGraph('altitude')" id="tab-altitude" class="graph-tab-active px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 transition-all">
-            ALTITUDE
-          </button>
-          <button onclick="selectGraph('mpu')" id="tab-mpu" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 transition-all font-bold text-cyan-300">
+          <button onclick="selectGraph('mpu')" id="tab-mpu" class="graph-tab-active px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 transition-all font-bold text-cyan-300">
             MPU6050 (PITCH / ROLL / YAW)
+          </button>
+          <button onclick="selectGraph('altitude')" id="tab-altitude" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 transition-all">
+            ALTITUDE
           </button>
           <button onclick="selectGraph('pressure')" id="tab-pressure" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 transition-all">
             PRESSURE
@@ -781,7 +777,7 @@
   </main>
 
   <!-- ======================================================== -->
-  <!-- 3. STAGE 2 VIVA & SYSTEM ARCHITECTURE MODAL             -->
+  <!-- 3. STAGE 2 VIVA & ARCHITECTURE MODAL                     -->
   <!-- ======================================================== -->
   <div id="vivaModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="hud-card w-full max-w-4xl p-6 rounded-2xl max-h-[90vh] overflow-y-auto border-cyan-400 shadow-[0_0_50px_rgba(0,240,255,0.4)]">
@@ -860,7 +856,7 @@
   <script>
     if (window.lucide) lucide.createIcons();
 
-    // 1. MOUSE-FOLLOWING STARFIELD CANVAS
+    // 1. STARFIELD PARALLAX
     const spaceCanvas = document.getElementById('spaceCanvas');
     const spaceCtx = spaceCanvas.getContext('2d');
     let width, height;
@@ -925,7 +921,7 @@
     }
     animateSpace();
 
-    // 2. WEB AUDIO API SYNTHESIZER
+    // 2. AUDIO SYNTHESIZER
     let isAudioMuted = false;
     let audioCtx = null;
 
@@ -986,7 +982,7 @@
       } catch (e) {}
     }
 
-    // 3. LEAFLET.JS RECOVERY GPS MAP
+    // 3. LEAFLET GPS RECOVERY MAP
     const MMMUT_COORDS = [26.7314, 83.4332];
     let mapInstance = null;
     let canSatMarker = null;
@@ -1065,7 +1061,7 @@
       return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
     }
 
-    // 4. SCREEN TRANSITIONS & VIVA MODAL
+    // 4. SCREEN TRANSITIONS
     const homeScreen = document.getElementById('homeScreen');
     const dashboardScreen = document.getElementById('dashboardScreen');
     const vivaModal = document.getElementById('vivaModal');
@@ -1104,7 +1100,7 @@
       vivaModal.classList.toggle('hidden');
     }
 
-    // 5. THREE.JS 3D CUBESAT (EMPTY SPACE + AXES)
+    // 5. THREE.JS 3D CUBESAT
     let scene, camera, renderer, cubeSatGroup;
     let isThreeInitialized = false;
     let isDragging = false;
@@ -1316,7 +1312,7 @@
       speed: Array(MAX_POINTS).fill(0.0)
     };
 
-    let activeGraphKey = 'altitude';
+    let activeGraphKey = 'mpu'; // Default to MPU so tilt is visible on startup
     let isMultiGridActive = false;
     let mainTelemetryChart = null;
     const gridCharts = {};
@@ -1479,7 +1475,7 @@
     function tareAltimeter() {
       altTareOffset = lastRawAltitude;
       const logLine = document.createElement('div');
-      logLine.innerText = `[CALIBRATION] Altimeter zeroed to Pad Ground Level. Offset: ${altTareOffset.toFixed(1)}m`;
+      logLine.innerText = `[CALIBRATION] Altimeter zeroed to Pad Level. Offset: ${altTareOffset.toFixed(1)}m`;
       rawLog.appendChild(logLine);
     }
 
@@ -1522,7 +1518,7 @@
       document.body.removeChild(link);
     }
 
-    // 9. NATIVE ADAPTER FOR RECEIVER ESP32 JSON STREAM
+    // 9. NORMALIZER FOR JSON STREAM
     function normalizeTelemetryPayload(raw) {
       if (raw.pkt !== undefined || raw.roll !== undefined) {
         return {
@@ -1547,8 +1543,8 @@
             humidity: raw.hum !== undefined ? Number(raw.hum) : 50.0
           },
           gps: {
-            lat: raw.lat !== undefined ? Number(raw.lat) : 28.6139,
-            lon: raw.lng !== undefined ? Number(raw.lng) : 77.2090,
+            lat: raw.lat !== undefined ? Number(raw.lat) : 26.7314,
+            lon: raw.lng !== undefined ? Number(raw.lng) : 83.4332,
             speed: raw.spd !== undefined ? Number(raw.spd) : 0.0,
             alt: raw.galt !== undefined ? Number(raw.galt) : (raw.alt !== undefined ? Number(raw.alt) : 0.0),
             sats: raw.sats !== undefined ? Number(raw.sats) : 0,
@@ -1559,7 +1555,7 @@
       return raw;
     }
 
-    // 10. WEB SERIAL DIRECT HARDWARE BRIDGE
+    // 10. WEB SERIAL CONNECTION (WITH DTR/RTS RESET FIX)
     let serialPort = null;
 
     async function connectUsbSerial() {
@@ -1571,6 +1567,13 @@
       try {
         serialPort = await navigator.serial.requestPort();
         await serialPort.open({ baudRate: 115200 });
+
+        // >>> FIX: Clear DTR/RTS lines so Chrome doesn't hold the ESP32 in reset <<<
+        try {
+          await serialPort.setSignals({ dataTerminalReady: false, requestToSend: false });
+        } catch (sigErr) {
+          console.warn("Could not set DTR/RTS signals:", sigErr);
+        }
 
         document.getElementById('usbBtnText').innerText = "LIVE USB (115200)";
         document.getElementById('usbConnectBtn').className = "px-3 py-1.5 rounded bg-emerald-500 text-black font-bold flex items-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.8)]";
@@ -1616,7 +1619,7 @@
                 const telemetryPayload = normalizeTelemetryPayload(rawPayload);
                 updateDashboardTelemetry(telemetryPayload);
               } catch (err) {
-                console.warn("JSON Parse:", jsonSubstring);
+                console.warn("Telemetry Decode Error:", err);
               }
             } else if (cleanLine.length > 0 && !cleanLine.startsWith("=")) {
               const bootLog = document.createElement('div');
@@ -1631,7 +1634,7 @@
       }
     }
 
-    // 11. TELEMETRY PROCESSING ENGINE & STATE MACHINE
+    // 11. TELEMETRY PROCESSING ENGINE
     let isSimActive = false;
     let simTimer = 0;
     let packetSeqCounter = 0;
@@ -1698,185 +1701,189 @@
     }
 
     function updateDashboardTelemetry(payload) {
-      packetSeqCounter = payload.pkt !== undefined ? payload.pkt : (packetSeqCounter + 1);
-      document.getElementById('packetSeq').innerText = `#${packetSeqCounter}`;
-      playTelemetryBeep();
+      try {
+        packetSeqCounter = payload.pkt !== undefined ? payload.pkt : (packetSeqCounter + 1);
+        document.getElementById('packetSeq').innerText = `#${packetSeqCounter}`;
+        playTelemetryBeep();
 
-      if (payload.rssi !== undefined) {
-        document.getElementById('rssiVal').innerText = `${payload.rssi} dBm`;
-      }
-
-      lastRawAltitude = payload.bmp.altitude;
-      const relativeAlt = payload.bmp.altitude - altTareOffset;
-      
-      // Instantaneous vertical speed calculation
-      const vsi = (payload.bmp.altitude - prevAltitude) / 0.25;
-      prevAltitude = payload.bmp.altitude;
-
-      // 1. Peak Altitude Memory
-      if (relativeAlt > peakAltVal) {
-        peakAltVal = relativeAlt;
-        document.getElementById('peakAlt').innerText = `${peakAltVal.toFixed(1)} m`;
-      }
-
-      // 2. Max Vertical Speed (Peak Climb Rate)
-      if (vsi > peakVsiVal) {
-        peakVsiVal = vsi;
-        document.getElementById('peakVsi').innerText = `+${peakVsiVal.toFixed(1)} m/s`;
-      }
-
-      // 3. Display Live Separated Speeds in the Peak Memory Box
-      document.getElementById('currentGpsSpeedVal').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
-      document.getElementById('currentVertSpeedVal').innerText = `${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)} m/s`;
-
-      // 4. Peak G-force Load
-      if (payload.mpu.ax !== undefined) {
-        const gLoad = Math.sqrt(payload.mpu.ax * payload.mpu.ax + payload.mpu.ay * payload.mpu.ay + payload.mpu.az * payload.mpu.az);
-        if (gLoad > peakGVal) {
-          peakGVal = gLoad;
-          document.getElementById('peakG').innerText = `${peakGVal.toFixed(2)} G`;
+        if (payload.rssi !== undefined) {
+          document.getElementById('rssiVal').innerText = `${payload.rssi} dBm`;
         }
-      }
 
-      // VSI Badge Display & Annunciator
-      const vsiValEl = document.getElementById('vsiVal');
-      const vsiBadge = document.getElementById('vsiBadge');
-      const annunVsi = document.getElementById('annun-vsi-state');
-      vsiValEl.innerText = `${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)} m/s`;
+        lastRawAltitude = payload.bmp.altitude;
+        const relativeAlt = payload.bmp.altitude - altTareOffset;
+        
+        // Instantaneous vertical speed calculation
+        const vsi = (payload.bmp.altitude - prevAltitude) / 0.25;
+        prevAltitude = payload.bmp.altitude;
 
-      if (vsi > 1.5) {
-        vsiBadge.innerText = "CLIMBING";
-        vsiBadge.className = "font-bold text-amber-400";
-        if (annunVsi) {
-          annunVsi.className = "annun-box annun-warning";
-          annunVsi.innerText = "VSI: CLIMBING";
+        // Peak Altitude Memory
+        if (relativeAlt > peakAltVal) {
+          peakAltVal = relativeAlt;
+          document.getElementById('peakAlt').innerText = `${peakAltVal.toFixed(1)} m`;
         }
-      } else if (vsi < -1.5) {
-        vsiBadge.innerText = "DESCENDING";
-        vsiBadge.className = "font-bold text-rose-400";
-        if (annunVsi) {
-          annunVsi.className = "annun-box annun-critical";
-          annunVsi.innerText = "VSI: DESCENDING";
+
+        // Max Vertical Speed
+        if (vsi > peakVsiVal) {
+          peakVsiVal = vsi;
+          document.getElementById('peakVsi').innerText = `+${peakVsiVal.toFixed(1)} m/s`;
         }
-      } else {
-        vsiBadge.innerText = "LEVEL";
-        vsiBadge.className = "font-bold text-emerald-400";
-        if (annunVsi) {
-          annunVsi.className = "annun-box annun-nominal";
-          annunVsi.innerText = "VSI: LEVEL";
+
+        document.getElementById('currentGpsSpeedVal').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
+        document.getElementById('currentVertSpeedVal').innerText = `${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)} m/s`;
+
+        // Peak G-force Load
+        if (payload.mpu.ax !== undefined) {
+          const gLoad = Math.sqrt(payload.mpu.ax * payload.mpu.ax + payload.mpu.ay * payload.mpu.ay + payload.mpu.az * payload.mpu.az);
+          if (gLoad > peakGVal) {
+            peakGVal = gLoad;
+            document.getElementById('peakG').innerText = `${peakGVal.toFixed(2)} G`;
+          }
         }
-      }
 
-      updateFlightState(payload.bmp.altitude, vsi);
+        // VSI Badge Display & Annunciator
+        const vsiValEl = document.getElementById('vsiVal');
+        const vsiBadge = document.getElementById('vsiBadge');
+        const annunVsi = document.getElementById('annun-vsi-state');
+        vsiValEl.innerText = `${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)} m/s`;
 
-      // 3D Three.js Orientation
-      if (cubeSatGroup) {
-        cubeSatGroup.rotation.x = (payload.mpu.pitch * Math.PI) / 180;
-        cubeSatGroup.rotation.y = (payload.mpu.yaw * Math.PI) / 180;
-        cubeSatGroup.rotation.z = (payload.mpu.roll * Math.PI) / 180;
-      }
-
-      // PFD & Numerical HUD
-      drawPfd(payload.mpu.pitch, payload.mpu.roll, relativeAlt, payload.gps.speed, payload.mpu.yaw);
-      document.getElementById('pfdSpeedVal').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
-      document.getElementById('pfdAltVal').innerText = `${relativeAlt.toFixed(1)} m`;
-      document.getElementById('pfdHdgVal').innerText = `${Math.round((payload.mpu.yaw % 360 + 360) % 360).toString().padStart(3, '0')}°`;
-
-      document.getElementById('pitchVal').innerText = `${payload.mpu.pitch >= 0 ? '+' : ''}${payload.mpu.pitch.toFixed(1)}°`;
-      document.getElementById('rollVal').innerText = `${payload.mpu.roll >= 0 ? '+' : ''}${payload.mpu.roll.toFixed(1)}°`;
-      document.getElementById('yawVal').innerText = `${payload.mpu.yaw.toFixed(1)}°`;
-
-      document.getElementById('altitudeVal').innerText = relativeAlt.toFixed(1);
-      document.getElementById('pressureVal').innerText = `${payload.bmp.pressure.toFixed(1)} hPa`;
-      document.getElementById('bmpTempVal').innerText = `${payload.bmp.temp.toFixed(1)} °C`;
-      document.getElementById('dhtTempVal').innerText = `${payload.dht.temp.toFixed(1)}°C`;
-      document.getElementById('dhtHumVal').innerText = `${payload.dht.humidity.toFixed(0)}%`;
-      document.getElementById('gpsSpeed').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
-      document.getElementById('gpsLat').innerText = `${payload.gps.lat.toFixed(4)}° N`;
-      document.getElementById('gpsLon').innerText = `${payload.gps.lon.toFixed(4)}° E`;
-      document.getElementById('gpsAltVal').innerText = `${payload.gps.alt.toFixed(1)} m`;
-      document.getElementById('gpsSats').innerText = `${payload.gps.sats} LOCKED`;
-
-      // GPS Fix status label
-      const fixBadge = document.getElementById('gpsFixBadge');
-      if (payload.gps.fix === 2) {
-        fixBadge.innerText = "GPS: 3D FIX (OUTDOORS)";
-        fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40";
-      } else if (payload.gps.fix === 1) {
-        fixBadge.innerText = "GPS: 2D ESTIMATE";
-        fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40";
-      } else {
-        fixBadge.innerText = "GPS: STANDBY (NO FIX)";
-        fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-500/40";
-      }
-
-      updateGpsMap(payload.gps.lat, payload.gps.lon);
-
-      // Graphs
-      historyLabels.shift();
-      historyLabels.push(`T+${packetSeqCounter}s`);
-
-      dataHist.pitch.shift(); dataHist.pitch.push(payload.mpu.pitch);
-      dataHist.roll.shift();  dataHist.roll.push(payload.mpu.roll);
-      dataHist.yaw.shift();   dataHist.yaw.push(payload.mpu.yaw);
-      dataHist.alt.shift();   dataHist.alt.push(relativeAlt);
-      dataHist.pressure.shift(); dataHist.pressure.push(payload.bmp.pressure);
-      dataHist.dhtTemp.shift(); dataHist.dhtTemp.push(payload.dht.temp);
-      dataHist.dhtHum.shift(); dataHist.dhtHum.push(payload.dht.humidity);
-      dataHist.speed.shift(); dataHist.speed.push(payload.gps.speed);
-
-      if (mainTelemetryChart) {
-        mainTelemetryChart.data.labels = historyLabels;
-        if (activeGraphKey === 'mpu') {
-          mainTelemetryChart.data.datasets[0].data = dataHist.pitch;
-          mainTelemetryChart.data.datasets[1].data = dataHist.roll;
-          mainTelemetryChart.data.datasets[2].data = dataHist.yaw;
-        } else if (activeGraphKey === 'pressure') {
-          mainTelemetryChart.data.datasets[0].data = dataHist.pressure;
-        } else if (activeGraphKey === 'dht') {
-          mainTelemetryChart.data.datasets[0].data = dataHist.dhtTemp;
-          mainTelemetryChart.data.datasets[1].data = dataHist.dhtHum;
-        } else if (activeGraphKey === 'speed') {
-          mainTelemetryChart.data.datasets[0].data = dataHist.speed;
+        if (vsi > 1.5) {
+          vsiBadge.innerText = "CLIMBING";
+          vsiBadge.className = "font-bold text-amber-400";
+          if (annunVsi) {
+            annunVsi.className = "annun-box annun-warning";
+            annunVsi.innerText = "VSI: CLIMBING";
+          }
+        } else if (vsi < -1.5) {
+          vsiBadge.innerText = "DESCENDING";
+          vsiBadge.className = "font-bold text-rose-400";
+          if (annunVsi) {
+            annunVsi.className = "annun-box annun-critical";
+            annunVsi.innerText = "VSI: DESCENDING";
+          }
         } else {
-          mainTelemetryChart.data.datasets[0].data = dataHist.alt;
+          vsiBadge.innerText = "LEVEL";
+          vsiBadge.className = "font-bold text-emerald-400";
+          if (annunVsi) {
+            annunVsi.className = "annun-box annun-nominal";
+            annunVsi.innerText = "VSI: LEVEL";
+          }
         }
-        mainTelemetryChart.update('none');
+
+        updateFlightState(payload.bmp.altitude, vsi);
+
+        // 3D Three.js Orientation
+        if (cubeSatGroup) {
+          cubeSatGroup.rotation.x = (payload.mpu.pitch * Math.PI) / 180;
+          cubeSatGroup.rotation.y = (payload.mpu.yaw * Math.PI) / 180;
+          cubeSatGroup.rotation.z = (payload.mpu.roll * Math.PI) / 180;
+        }
+
+        // PFD & Numerical HUD
+        drawPfd(payload.mpu.pitch, payload.mpu.roll, relativeAlt, payload.gps.speed, payload.mpu.yaw);
+        document.getElementById('pfdSpeedVal').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
+        document.getElementById('pfdAltVal').innerText = `${relativeAlt.toFixed(1)} m`;
+        document.getElementById('pfdHdgVal').innerText = `${Math.round((payload.mpu.yaw % 360 + 360) % 360).toString().padStart(3, '0')}°`;
+
+        document.getElementById('pitchVal').innerText = `${payload.mpu.pitch >= 0 ? '+' : ''}${payload.mpu.pitch.toFixed(1)}°`;
+        document.getElementById('rollVal').innerText = `${payload.mpu.roll >= 0 ? '+' : ''}${payload.mpu.roll.toFixed(1)}°`;
+        document.getElementById('yawVal').innerText = `${payload.mpu.yaw.toFixed(1)}°`;
+
+        document.getElementById('altitudeVal').innerText = relativeAlt.toFixed(1);
+        document.getElementById('pressureVal').innerText = `${payload.bmp.pressure.toFixed(1)} hPa`;
+        document.getElementById('bmpTempVal').innerText = `${payload.bmp.temp.toFixed(1)} °C`;
+        document.getElementById('dhtTempVal').innerText = `${payload.dht.temp.toFixed(1)}°C`;
+        document.getElementById('dhtHumVal').innerText = `${payload.dht.humidity.toFixed(0)}%`;
+        document.getElementById('gpsSpeed').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
+        document.getElementById('gpsLat').innerText = `${payload.gps.lat.toFixed(4)}° N`;
+        document.getElementById('gpsLon').innerText = `${payload.gps.lon.toFixed(4)}° E`;
+        document.getElementById('gpsAltVal').innerText = `${payload.gps.alt.toFixed(1)} m`;
+        document.getElementById('gpsSats').innerText = `${payload.gps.sats} LOCKED`;
+
+        // GPS Fix status label
+        const fixBadge = document.getElementById('gpsFixBadge');
+        if (payload.gps.fix === 2) {
+          fixBadge.innerText = "GPS: 3D FIX";
+          fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40";
+        } else if (payload.gps.fix === 1) {
+          fixBadge.innerText = "GPS: 2D FIX";
+          fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40";
+        } else {
+          fixBadge.innerText = "GPS: STANDBY";
+          fixBadge.className = "text-[9px] px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-500/40";
+        }
+
+        updateGpsMap(payload.gps.lat, payload.gps.lon);
+
+        // Update Graphs
+        historyLabels.shift();
+        historyLabels.push(`T+${packetSeqCounter}s`);
+
+        dataHist.pitch.shift(); dataHist.pitch.push(payload.mpu.pitch);
+        dataHist.roll.shift();  dataHist.roll.push(payload.mpu.roll);
+        dataHist.yaw.shift();   dataHist.yaw.push(payload.mpu.yaw);
+        dataHist.alt.shift();   dataHist.alt.push(relativeAlt);
+        dataHist.pressure.shift(); dataHist.pressure.push(payload.bmp.pressure);
+        dataHist.dhtTemp.shift(); dataHist.dhtTemp.push(payload.dht.temp);
+        dataHist.dhtHum.shift(); dataHist.dhtHum.push(payload.dht.humidity);
+        dataHist.speed.shift(); dataHist.speed.push(payload.gps.speed);
+
+        if (mainTelemetryChart) {
+          mainTelemetryChart.data.labels = historyLabels;
+          if (activeGraphKey === 'mpu') {
+            mainTelemetryChart.data.datasets[0].data = dataHist.pitch;
+            mainTelemetryChart.data.datasets[1].data = dataHist.roll;
+            mainTelemetryChart.data.datasets[2].data = dataHist.yaw;
+          } else if (activeGraphKey === 'pressure') {
+            mainTelemetryChart.data.datasets[0].data = dataHist.pressure;
+          } else if (activeGraphKey === 'dht') {
+            mainTelemetryChart.data.datasets[0].data = dataHist.dhtTemp;
+            mainTelemetryChart.data.datasets[1].data = dataHist.dhtHum;
+          } else if (activeGraphKey === 'speed') {
+            mainTelemetryChart.data.datasets[0].data = dataHist.speed;
+          } else {
+            mainTelemetryChart.data.datasets[0].data = dataHist.alt;
+          }
+          mainTelemetryChart.update('none');
+        }
+
+        if (isMultiGridActive) updateMultiGridCharts();
+
+        // MET Timer
+        if (payload.time !== undefined) {
+          const sec = Math.floor(payload.time / 1000);
+          document.getElementById('metTimer').innerText = `T+${Math.floor(sec/60).toString().padStart(2,'0')}:${(sec%60).toString().padStart(2,'0')}`;
+        }
+
+        if (isCsvRecording) {
+          recordedTelemetry.push({
+            time: new Date().toISOString(),
+            met: document.getElementById('metTimer').innerText,
+            seq: packetSeqCounter,
+            pitch: payload.mpu.pitch.toFixed(2),
+            roll: payload.mpu.roll.toFixed(2),
+            yaw: payload.mpu.yaw.toFixed(2),
+            alt: relativeAlt.toFixed(2),
+            press: payload.bmp.pressure.toFixed(2),
+            temp: payload.bmp.temp.toFixed(2),
+            hum: payload.dht.humidity.toFixed(2),
+            lat: payload.gps.lat.toFixed(6),
+            lon: payload.gps.lon.toFixed(6),
+            speed: payload.gps.speed.toFixed(2),
+            vsi: vsi.toFixed(2),
+            phase: currentFlightPhase
+          });
+        }
+
+        const logLine = document.createElement('div');
+        logLine.innerText = `[PKT_${packetSeqCounter}] R:${payload.mpu.roll.toFixed(0)} P:${payload.mpu.pitch.toFixed(0)} ALT:${relativeAlt.toFixed(1)}m VSI:${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)}m/s SPD:${payload.gps.speed.toFixed(1)}km/h RSSI:${payload.rssi}`;
+        rawLog.appendChild(logLine);
+        rawLog.scrollTop = rawLog.scrollHeight;
+        if (rawLog.children.length > 25) rawLog.removeChild(rawLog.children[0]);
+
+      } catch (err) {
+        console.warn("UI Telemetry Update Error:", err);
       }
-
-      if (isMultiGridActive) updateMultiGridCharts();
-
-      // MET Timer
-      if (payload.time !== undefined) {
-        const sec = Math.floor(payload.time / 1000);
-        document.getElementById('metTimer').innerText = `T+${Math.floor(sec/60).toString().padStart(2,'0')}:${(sec%60).toString().padStart(2,'0')}`;
-      }
-
-      if (isCsvRecording) {
-        recordedTelemetry.push({
-          time: new Date().toISOString(),
-          met: document.getElementById('metTimer').innerText,
-          seq: packetSeqCounter,
-          pitch: payload.mpu.pitch.toFixed(2),
-          roll: payload.mpu.roll.toFixed(2),
-          yaw: payload.mpu.yaw.toFixed(2),
-          alt: relativeAlt.toFixed(2),
-          press: payload.bmp.pressure.toFixed(2),
-          temp: payload.bmp.temp.toFixed(2),
-          hum: payload.dht.humidity.toFixed(2),
-          lat: payload.gps.lat.toFixed(6),
-          lon: payload.gps.lon.toFixed(6),
-          speed: payload.gps.speed.toFixed(2),
-          vsi: vsi.toFixed(2),
-          phase: currentFlightPhase
-        });
-      }
-
-      const logLine = document.createElement('div');
-      logLine.innerText = `[PKT_${packetSeqCounter}] R:${payload.mpu.roll.toFixed(0)} P:${payload.mpu.pitch.toFixed(0)} ALT:${relativeAlt.toFixed(1)}m VSI:${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)}m/s SPD:${payload.gps.speed.toFixed(1)}km/h RSSI:${payload.rssi}`;
-      rawLog.appendChild(logLine);
-      rawLog.scrollTop = rawLog.scrollHeight;
-      if (rawLog.children.length > 25) rawLog.removeChild(rawLog.children[0]);
     }
   </script>
 </body>
