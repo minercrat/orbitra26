@@ -10,7 +10,6 @@ Access our Ground Station online: [https://minercrat.github.io/orbitra26/](https
 - **Avionics & IMU:** MPU6050 (6-DOF Accelerometer & Gyroscope over I2C)
 - **Altimeter & Environment:** BMP280 (Barometer) + DHT11 (Chassis Temp & Humidity)
 - **Navigation:** NEO-6M GPS with ceramic patch antenna (UART @ 9600 baud)
-- **Power Subsystem (EPS):** 2S Li-Ion Battery (7.4V) with 2S BMS & LM2596 Buck Step-Down to 5.0V
 
 ## 📂 Project Structure
 - `/index.html`: Mission Control Ground Station with 3D Attitude visualizer, PFD, and GPS tracking.
