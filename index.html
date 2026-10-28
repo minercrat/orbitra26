@@ -521,7 +521,7 @@
 
     </div>
 
-    <!-- Main Telemetry Grid (Part 2: Sensors & Flight Peaks) -->
+    <!-- Main Telemetry Grid (Part 2: Sensors & Flight Peaks - Balanced 3 Column Row) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
       <!-- 3. BMP280 + VERTICAL SPEED INDICATOR (VSI) -->
@@ -558,7 +558,7 @@
         </div>
       </div>
 
-      <!-- 4. FLIGHT PEAK MEMORY -->
+      <!-- 4. FLIGHT PEAK MEMORY (SEPARATE MAX & CURRENT SPEEDS) -->
       <div class="hud-card p-4 rounded-xl flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1.5">
           <span class="orbitron text-xs font-bold text-cyan-300">FLIGHT PEAK MEMORY</span>
@@ -571,16 +571,19 @@
             <span id="peakAlt" class="text-cyan-300 font-bold font-mono">0.0 m</span>
           </div>
           
+          <!-- SEPARATED MAX VERTICAL SPEED -->
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-amber-400 text-[11px] font-bold">MAX VERTICAL SPEED:</span>
             <span id="peakVsi" class="text-amber-300 font-bold font-mono">+0.0 m/s</span>
           </div>
 
+          <!-- SEPARATED CURRENT GPS / HORIZONTAL SPEED -->
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-slate-300 text-[11px]">CURRENT GPS SPEED:</span>
             <span id="currentGpsSpeedVal" class="text-cyan-300 font-bold font-mono">0.0 km/h</span>
           </div>
 
+          <!-- SEPARATED CURRENT VERTICAL SPEED -->
           <div class="flex justify-between items-center p-1.5 rounded bg-slate-900/80 border border-slate-800">
             <span class="text-slate-300 text-[11px]">CURRENT VERT SPEED:</span>
             <span id="currentVertSpeedVal" class="text-emerald-400 font-bold font-mono">+0.0 m/s</span>
@@ -925,7 +928,6 @@
     // 2. WEB AUDIO API SYNTHESIZER
     let isAudioMuted = false;
     let audioCtx = null;
-    let lastAudioBeepTime = 0;
 
     function getAudioCtx() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -942,18 +944,13 @@
       } else {
         icon.setAttribute('data-lucide', 'volume-2');
         icon.className = 'w-3.5 h-3.5 text-cyan-400';
-        playTelemetryBeep(true);
+        playTelemetryBeep();
       }
       if (window.lucide) lucide.createIcons();
     }
 
-    function playTelemetryBeep(force = false) {
+    function playTelemetryBeep() {
       if (isAudioMuted) return;
-      const now = performance.now();
-      // Throttle audio beeps so high-baud serial telemetry doesn't choke the audio thread
-      if (!force && now - lastAudioBeepTime < 250) return;
-      lastAudioBeepTime = now;
-
       try {
         const ctx = getAudioCtx();
         const osc = ctx.createOscillator();
@@ -1086,7 +1083,6 @@
           initMainChart();
           initMultiGridCharts();
           initRecoveryMap();
-          startInterpolatedMasterLoop(); // Start smooth 60fps render engine
           if (mapInstance) mapInstance.invalidateSize();
         }, 50);
       }, 500);
@@ -1108,26 +1104,7 @@
       vivaModal.classList.toggle('hidden');
     }
 
-    // ========================================================
-    // 5. HIGH-PERFORMANCE INTERPOLATION (LERP) ENGINE FOR 3D & PFD
-    // ========================================================
-    const targetFlightState = {
-      pitch: 0.0,
-      roll: 0.0,
-      yaw: 0.0,
-      alt: 0.0,
-      speed: 0.0
-    };
-
-    const currentFlightState = {
-      pitch: 0.0,
-      roll: 0.0,
-      yaw: 0.0,
-      alt: 0.0,
-      speed: 0.0
-    };
-
-    // 6. THREE.JS 3D CUBESAT
+    // 5. THREE.JS 3D CUBESAT (EMPTY SPACE + AXES)
     let scene, camera, renderer, cubeSatGroup;
     let isThreeInitialized = false;
     let isDragging = false;
@@ -1143,9 +1120,9 @@
       camera = new THREE.PerspectiveCamera(45, rect.width / rect.height, 0.1, 100);
       camera.position.set(0, 0, 7.8);
 
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(rect.width, rect.height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
 
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
@@ -1218,18 +1195,20 @@
         prevMousePos = { x: e.clientX, y: e.clientY };
       });
 
-      window.addEventListener('resize', () => {
-        if (!renderer || !camera || !container) return;
-        const newRect = container.getBoundingClientRect();
-        camera.aspect = newRect.width / newRect.height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(newRect.width, newRect.height);
-      });
-
+      function renderThree() {
+        requestAnimationFrame(renderThree);
+        const radius = 7.5;
+        camera.position.x = radius * Math.sin(cameraRotation.y) * Math.cos(cameraRotation.x);
+        camera.position.y = radius * Math.sin(cameraRotation.x);
+        camera.position.z = radius * Math.cos(cameraRotation.y) * Math.cos(cameraRotation.x);
+        camera.lookAt(0, 0, 0);
+        renderer.render(scene, camera);
+      }
+      renderThree();
       isThreeInitialized = true;
     }
 
-    // 7. PRIMARY FLIGHT DISPLAY (PFD)
+    // 6. PRIMARY FLIGHT DISPLAY (PFD)
     const pfdCanvas = document.getElementById('pfdCanvas');
     const pfdCtx = pfdCanvas.getContext('2d');
     let pfdW, pfdH;
@@ -1241,6 +1220,7 @@
 
     function initPfd() {
       resizePfd();
+      drawPfd(0, 0, 0, 0, 0);
     }
     window.addEventListener('resize', resizePfd);
 
@@ -1318,61 +1298,10 @@
       ctx.fillRect(45, pfdH - 32, pfdW - 90, 26);
       ctx.strokeStyle = '#00f0ff'; ctx.strokeRect(45, pfdH - 32, pfdW - 90, 26);
       ctx.fillStyle = '#34d399'; ctx.font = 'bold 11px Share Tech Mono';
-      ctx.fillText(`HDG: ${Math.round((yaw % 360 + 360) % 360).toString().padStart(3, '0')}°`, cx, pfdH - 15);
+      ctx.fillText(`HDG: ${Math.round(yaw).toString().padStart(3, '0')}°`, cx, pfdH - 15);
     }
 
-    // MASTER 60FPS SMOOTH ANIMATION LOOP
-    let masterLoopStarted = false;
-    function startInterpolatedMasterLoop() {
-      if (masterLoopStarted) return;
-      masterLoopStarted = true;
-
-      function loop() {
-        requestAnimationFrame(loop);
-
-        // LERP factor (0.22 ensures fast responsiveness while completely eliminating stepped lag)
-        const alpha = 0.22;
-        currentFlightState.pitch += (targetFlightState.pitch - currentFlightState.pitch) * alpha;
-        currentFlightState.roll  += (targetFlightState.roll - currentFlightState.roll) * alpha;
-        
-        // Handle angle wrapping for Yaw (shortest rotational direction)
-        let deltaYaw = (targetFlightState.yaw - currentFlightState.yaw) % 360;
-        if (deltaYaw > 180) deltaYaw -= 360;
-        if (deltaYaw < -180) deltaYaw += 360;
-        currentFlightState.yaw   += deltaYaw * alpha;
-
-        currentFlightState.alt   += (targetFlightState.alt - currentFlightState.alt) * alpha;
-        currentFlightState.speed += (targetFlightState.speed - currentFlightState.speed) * alpha;
-
-        // 1. Smoothly render 3D Three.js Model
-        if (cubeSatGroup) {
-          cubeSatGroup.rotation.x = (currentFlightState.pitch * Math.PI) / 180;
-          cubeSatGroup.rotation.y = (currentFlightState.yaw * Math.PI) / 180;
-          cubeSatGroup.rotation.z = (currentFlightState.roll * Math.PI) / 180;
-        }
-
-        if (renderer && scene && camera) {
-          const radius = 7.5;
-          camera.position.x = radius * Math.sin(cameraRotation.y) * Math.cos(cameraRotation.x);
-          camera.position.y = radius * Math.sin(cameraRotation.x);
-          camera.position.z = radius * Math.cos(cameraRotation.y) * Math.cos(cameraRotation.x);
-          camera.lookAt(0, 0, 0);
-          renderer.render(scene, camera);
-        }
-
-        // 2. Smoothly draw Primary Flight Display
-        drawPfd(
-          currentFlightState.pitch,
-          currentFlightState.roll,
-          currentFlightState.alt,
-          currentFlightState.speed,
-          currentFlightState.yaw
-        );
-      }
-      requestAnimationFrame(loop);
-    }
-
-    // 8. MULTI-STATISTIC GRAPH ENGINE (THROTTLED FOR PERFORMANCE)
+    // 7. MULTI-STATISTIC GRAPH ENGINE
     const MAX_POINTS = 16;
     const historyLabels = Array.from({ length: MAX_POINTS }, (_, i) => `T-${MAX_POINTS - i}s`);
     
@@ -1391,7 +1320,6 @@
     let isMultiGridActive = false;
     let mainTelemetryChart = null;
     const gridCharts = {};
-    let lastChartRenderTime = 0;
 
     function initMainChart() {
       if (mainTelemetryChart) return;
@@ -1543,7 +1471,7 @@
       gridCharts.speed.update('none');
     }
 
-    // 9. TARE & CSV RECORDER
+    // 8. TARE & CSV RECORDER
     let altTareOffset = 0.0;
     let isCsvRecording = false;
     let recordedTelemetry = [];
@@ -1594,7 +1522,7 @@
       document.body.removeChild(link);
     }
 
-    // 10. NATIVE ADAPTER FOR RECEIVER ESP32 JSON STREAM
+    // 9. NATIVE ADAPTER FOR RECEIVER ESP32 JSON STREAM
     function normalizeTelemetryPayload(raw) {
       if (raw.pkt !== undefined || raw.roll !== undefined) {
         return {
@@ -1631,7 +1559,7 @@
       return raw;
     }
 
-    // 11. WEB SERIAL DIRECT HARDWARE BRIDGE
+    // 10. WEB SERIAL DIRECT HARDWARE BRIDGE
     let serialPort = null;
 
     async function connectUsbSerial() {
@@ -1703,9 +1631,8 @@
       }
     }
 
-    // 12. TELEMETRY PROCESSING ENGINE & STATE MACHINE
+    // 11. TELEMETRY PROCESSING ENGINE & STATE MACHINE
     let isSimActive = false;
-    let simInterval = null;
     let simTimer = 0;
     let packetSeqCounter = 0;
     let lastRawAltitude = 0.0;
@@ -1760,44 +1687,7 @@
         simStatusText.innerText = 'SIM: ACTIVE';
         simIndicatorBadge.className = 'text-[9px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/50 uppercase';
         simIndicatorBadge.innerText = 'SIM ACTIVE (MANEUVERING)';
-
-        simInterval = setInterval(() => {
-          simTimer++;
-          const t = simTimer * 0.15;
-          const fakePayload = {
-            pkt: packetSeqCounter + 1,
-            time: simTimer * 100,
-            rssi: -62 + Math.round(Math.sin(t) * 4),
-            mpu: {
-              pitch: Math.sin(t) * 25,
-              roll: Math.cos(t * 1.2) * 20,
-              yaw: (simTimer * 3) % 360,
-              ax: Math.sin(t) * 0.4,
-              ay: Math.cos(t) * 0.3,
-              az: 1.0 + Math.sin(t) * 0.2
-            },
-            bmp: {
-              altitude: Math.max(0, 15 + Math.sin(t * 0.3) * 60 + simTimer * 0.5),
-              pressure: 1013 - Math.sin(t * 0.3) * 6,
-              temp: 24.5 + Math.sin(t) * 0.5
-            },
-            dht: {
-              temp: 24.8,
-              humidity: 52
-            },
-            gps: {
-              lat: MMMUT_COORDS[0] + Math.sin(t * 0.05) * 0.001,
-              lon: MMMUT_COORDS[1] + Math.cos(t * 0.05) * 0.001,
-              speed: 12 + Math.abs(Math.sin(t) * 15),
-              alt: 18 + simTimer * 0.5,
-              sats: 8,
-              fix: 2
-            }
-          };
-          updateDashboardTelemetry(fakePayload);
-        }, 100);
       } else {
-        clearInterval(simInterval);
         simToggleBtn.classList.add('bg-slate-900', 'border-slate-700', 'text-slate-300');
         simToggleBtn.classList.remove('bg-cyan-950', 'border-cyan-400', 'text-cyan-300', 'shadow-[0_0_15px_rgba(0,240,255,0.4)]');
         simLed.className = 'w-2 h-2 rounded-full bg-slate-500';
@@ -1879,14 +1769,15 @@
 
       updateFlightState(payload.bmp.altitude, vsi);
 
-      // FEED TARGET VALUES TO 60FPS LERP ENGINE
-      targetFlightState.pitch = payload.mpu.pitch;
-      targetFlightState.roll  = payload.mpu.roll;
-      targetFlightState.yaw   = payload.mpu.yaw;
-      targetFlightState.alt   = relativeAlt;
-      targetFlightState.speed = payload.gps.speed;
+      // 3D Three.js Orientation
+      if (cubeSatGroup) {
+        cubeSatGroup.rotation.x = (payload.mpu.pitch * Math.PI) / 180;
+        cubeSatGroup.rotation.y = (payload.mpu.yaw * Math.PI) / 180;
+        cubeSatGroup.rotation.z = (payload.mpu.roll * Math.PI) / 180;
+      }
 
-      // Numerical HUD displays
+      // PFD & Numerical HUD
+      drawPfd(payload.mpu.pitch, payload.mpu.roll, relativeAlt, payload.gps.speed, payload.mpu.yaw);
       document.getElementById('pfdSpeedVal').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
       document.getElementById('pfdAltVal').innerText = `${relativeAlt.toFixed(1)} m`;
       document.getElementById('pfdHdgVal').innerText = `${Math.round((payload.mpu.yaw % 360 + 360) % 360).toString().padStart(3, '0')}°`;
@@ -1921,44 +1812,39 @@
 
       updateGpsMap(payload.gps.lat, payload.gps.lon);
 
-      // THROTTLED GRAPH ENGINE (Only update charts every 250ms to prevent browser thread choking)
-      const now = performance.now();
-      if (now - lastChartRenderTime > 250) {
-        lastChartRenderTime = now;
+      // Graphs
+      historyLabels.shift();
+      historyLabels.push(`T+${packetSeqCounter}s`);
 
-        historyLabels.shift();
-        historyLabels.push(`T+${packetSeqCounter}s`);
+      dataHist.pitch.shift(); dataHist.pitch.push(payload.mpu.pitch);
+      dataHist.roll.shift();  dataHist.roll.push(payload.mpu.roll);
+      dataHist.yaw.shift();   dataHist.yaw.push(payload.mpu.yaw);
+      dataHist.alt.shift();   dataHist.alt.push(relativeAlt);
+      dataHist.pressure.shift(); dataHist.pressure.push(payload.bmp.pressure);
+      dataHist.dhtTemp.shift(); dataHist.dhtTemp.push(payload.dht.temp);
+      dataHist.dhtHum.shift(); dataHist.dhtHum.push(payload.dht.humidity);
+      dataHist.speed.shift(); dataHist.speed.push(payload.gps.speed);
 
-        dataHist.pitch.shift(); dataHist.pitch.push(payload.mpu.pitch);
-        dataHist.roll.shift();  dataHist.roll.push(payload.mpu.roll);
-        dataHist.yaw.shift();   dataHist.yaw.push(payload.mpu.yaw);
-        dataHist.alt.shift();   dataHist.alt.push(relativeAlt);
-        dataHist.pressure.shift(); dataHist.pressure.push(payload.bmp.pressure);
-        dataHist.dhtTemp.shift(); dataHist.dhtTemp.push(payload.dht.temp);
-        dataHist.dhtHum.shift(); dataHist.dhtHum.push(payload.dht.humidity);
-        dataHist.speed.shift(); dataHist.speed.push(payload.gps.speed);
-
-        if (mainTelemetryChart) {
-          mainTelemetryChart.data.labels = historyLabels;
-          if (activeGraphKey === 'mpu') {
-            mainTelemetryChart.data.datasets[0].data = dataHist.pitch;
-            mainTelemetryChart.data.datasets[1].data = dataHist.roll;
-            mainTelemetryChart.data.datasets[2].data = dataHist.yaw;
-          } else if (activeGraphKey === 'pressure') {
-            mainTelemetryChart.data.datasets[0].data = dataHist.pressure;
-          } else if (activeGraphKey === 'dht') {
-            mainTelemetryChart.data.datasets[0].data = dataHist.dhtTemp;
-            mainTelemetryChart.data.datasets[1].data = dataHist.dhtHum;
-          } else if (activeGraphKey === 'speed') {
-            mainTelemetryChart.data.datasets[0].data = dataHist.speed;
-          } else {
-            mainTelemetryChart.data.datasets[0].data = dataHist.alt;
-          }
-          mainTelemetryChart.update('none');
+      if (mainTelemetryChart) {
+        mainTelemetryChart.data.labels = historyLabels;
+        if (activeGraphKey === 'mpu') {
+          mainTelemetryChart.data.datasets[0].data = dataHist.pitch;
+          mainTelemetryChart.data.datasets[1].data = dataHist.roll;
+          mainTelemetryChart.data.datasets[2].data = dataHist.yaw;
+        } else if (activeGraphKey === 'pressure') {
+          mainTelemetryChart.data.datasets[0].data = dataHist.pressure;
+        } else if (activeGraphKey === 'dht') {
+          mainTelemetryChart.data.datasets[0].data = dataHist.dhtTemp;
+          mainTelemetryChart.data.datasets[1].data = dataHist.dhtHum;
+        } else if (activeGraphKey === 'speed') {
+          mainTelemetryChart.data.datasets[0].data = dataHist.speed;
+        } else {
+          mainTelemetryChart.data.datasets[0].data = dataHist.alt;
         }
-
-        if (isMultiGridActive) updateMultiGridCharts();
+        mainTelemetryChart.update('none');
       }
+
+      if (isMultiGridActive) updateMultiGridCharts();
 
       // MET Timer
       if (payload.time !== undefined) {
@@ -1986,12 +1872,11 @@
         });
       }
 
-      // Serial Log buffer
       const logLine = document.createElement('div');
-      logLine.innerText = `[PKT_${packetSeqCounter}] R:${payload.mpu.roll.toFixed(0)} P:${payload.mpu.pitch.toFixed(0)} ALT:${relativeAlt.toFixed(1)}m VSI:${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)}m/s SPD:${payload.gps.speed.toFixed(1)}km/h`;
+      logLine.innerText = `[PKT_${packetSeqCounter}] R:${payload.mpu.roll.toFixed(0)} P:${payload.mpu.pitch.toFixed(0)} ALT:${relativeAlt.toFixed(1)}m VSI:${vsi >= 0 ? '+' : ''}${vsi.toFixed(1)}m/s SPD:${payload.gps.speed.toFixed(1)}km/h RSSI:${payload.rssi}`;
       rawLog.appendChild(logLine);
       rawLog.scrollTop = rawLog.scrollHeight;
-      if (rawLog.children.length > 20) rawLog.removeChild(rawLog.children[0]);
+      if (rawLog.children.length > 25) rawLog.removeChild(rawLog.children[0]);
     }
   </script>
 </body>
