@@ -44,7 +44,6 @@
       font-family: 'Orbitron', sans-serif;
     }
 
-    /* Glassmorphic Space HUD panels */
     .hud-card {
       background: rgba(8, 14, 28, 0.85);
       backdrop-filter: blur(14px);
@@ -71,7 +70,6 @@
       border-right: 2px solid #00f0ff;
     }
 
-    /* REALISTIC EARTH RENDERING */
     .earth-globe {
       position: relative;
       background: radial-gradient(circle at 30% 30%, #1e40af 0%, #172554 45%, #051026 100%);
@@ -116,7 +114,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* FLOATING SATELLITES */
     .orbit-path-sat1 {
       position: absolute;
       width: 440px; height: 260px;
@@ -156,7 +153,6 @@
       100% { transform: rotate(78deg) rotate(360deg); }
     }
 
-    /* 2D BUTTON ORBIT */
     .orbit-button-container {
       position: absolute;
       top: 50%;
@@ -185,7 +181,6 @@
       box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
     }
 
-    /* Annunciator Panel Styling */
     .annun-box {
       font-family: 'Share Tech Mono', monospace;
       font-size: 10px;
@@ -348,7 +343,7 @@
           <span id="usbBtnText" class="font-bold text-[11px]">CONNECT USB</span>
         </button>
 
-        <!-- STAGE 3 PREDEFINED ANOMALY DRILL BUTTON (JUDGE SCENARIO) -->
+        <!-- STAGE 3 ANOMALY DRILL BUTTON (JUDGE DRILL) -->
         <button id="anomalyBtn" onclick="toggleAnomalyDrill()" class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-rose-300 hover:border-rose-400 flex items-center gap-1.5 transition-all" title="Stage 3 Judge Anomaly Simulation">
           <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-400"></i>
           <span id="anomalyBtnText" class="font-bold text-[11px]">ANOMALY DRILL</span>
@@ -440,7 +435,6 @@
           </div>
           <div class="bg-slate-900/80 p-1.5 rounded border border-slate-800">
             <div class="text-[9px] text-slate-400">PACKET LOSS</div>
-            <!-- DYNAMIC REAL-TIME PER CALCULATION -->
             <div id="perVal" class="text-emerald-400 font-bold font-mono">0.00%</div>
           </div>
           <div class="bg-slate-900/80 p-1.5 rounded border border-slate-800">
@@ -458,11 +452,11 @@
     <!-- Main Telemetry Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
-      <!-- 1. MPU6050 3D CUBESAT -->
+      <!-- 1. MPU6050 3D CUBESAT (PRECISION IN-PLACE ROTATION ON 3D UNIT GRID) -->
       <div class="hud-card p-4 rounded-xl flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2">
           <div class="flex items-center space-x-2">
-            <span class="orbitron text-xs font-bold text-cyan-300">3D CUBESAT // ATTITUDE & AXES VECTORS</span>
+            <span class="orbitron text-xs font-bold text-cyan-300">3D CUBESAT // 1x1 UNIT-SQUARE REFERENCE GRID</span>
             <span id="simIndicatorBadge" class="text-[9px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 uppercase">STANDBY (STABLE)</span>
           </div>
           <button onclick="selectGraph('mpu')" class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500 hover:text-black transition-colors flex items-center gap-1">
@@ -470,28 +464,54 @@
           </button>
         </div>
 
-        <div class="relative w-full h-56 rounded-lg bg-black/70 my-2 overflow-hidden border border-cyan-500/10">
+        <!-- 3D VIEWPORT WITH UNIT SQUARES GRID -->
+        <div class="relative w-full h-56 rounded-lg bg-slate-950/90 my-2 overflow-hidden border border-cyan-500/30 shadow-[inset_0_0_30px_rgba(0,240,255,0.1)]">
           <div id="threeJsContainer" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
           
-          <div class="absolute bottom-2 left-2 flex items-center space-x-3 text-[10px] bg-slate-950/80 px-2.5 py-1 rounded border border-slate-800 pointer-events-none">
-            <span class="text-red-400 font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span> +X PITCH</span>
-            <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> +Y ROLL</span>
-            <span class="text-sky-400 font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-sky-500"></span> +Z YAW</span>
+          <div class="absolute bottom-2 left-2 flex items-center space-x-3 text-[9px] bg-slate-950/90 px-2.5 py-1 rounded border border-cyan-500/30 pointer-events-none">
+            <span class="text-cyan-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-sm"></span> 1x1 UNIT GRID</span>
+            <span class="text-red-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> +X PITCH</span>
+            <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> +Y ROLL</span>
+            <span class="text-sky-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> +Z YAW</span>
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-2 text-center text-xs">
-          <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
-            <div class="text-[10px] text-slate-400">PITCH (X)</div>
-            <div id="pitchVal" class="text-cyan-300 font-bold text-sm">+0.0°</div>
+        <!-- DUAL COORDINATE DISPLAY: EULERS & QUATERNIONS ONLY -->
+        <div class="space-y-1.5">
+          <!-- 1. Euler Angles (Pitch, Roll, Yaw) -->
+          <div class="grid grid-cols-3 gap-2 text-center text-xs">
+            <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase tracking-wider">EULER PITCH (θ)</div>
+              <div id="pitchVal" class="text-cyan-300 font-bold text-sm">+0.0°</div>
+            </div>
+            <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase tracking-wider">EULER ROLL (φ)</div>
+              <div id="rollVal" class="text-cyan-300 font-bold text-sm">+0.0°</div>
+            </div>
+            <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase tracking-wider">EULER YAW (ψ)</div>
+              <div id="yawVal" class="text-cyan-300 font-bold text-sm">+0.0°</div>
+            </div>
           </div>
-          <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
-            <div class="text-[10px] text-slate-400">ROLL (Y)</div>
-            <div id="rollVal" class="text-cyan-300 font-bold text-sm">+0.0°</div>
-          </div>
-          <div class="bg-slate-900/90 p-1.5 rounded border border-slate-800">
-            <div class="text-[10px] text-slate-400">YAW (Z)</div>
-            <div id="yawVal" class="text-cyan-300 font-bold text-sm">+0.0°</div>
+
+          <!-- 2. Quaternion Coordinates (Qw, Qx, Qy, Qz) -->
+          <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+            <div class="bg-slate-950/90 p-1 rounded border border-cyan-500/20">
+              <div class="text-[8px] text-slate-400 font-mono">QUAT Qw</div>
+              <div id="quatW" class="text-sky-300 font-mono font-bold text-[11px]">+1.0000</div>
+            </div>
+            <div class="bg-slate-950/90 p-1 rounded border border-cyan-500/20">
+              <div class="text-[8px] text-slate-400 font-mono">QUAT Qx</div>
+              <div id="quatX" class="text-emerald-300 font-mono font-bold text-[11px]">+0.0000</div>
+            </div>
+            <div class="bg-slate-950/90 p-1 rounded border border-cyan-500/20">
+              <div class="text-[8px] text-slate-400 font-mono">QUAT Qy</div>
+              <div id="quatY" class="text-amber-300 font-mono font-bold text-[11px]">+0.0000</div>
+            </div>
+            <div class="bg-slate-950/90 p-1 rounded border border-cyan-500/20">
+              <div class="text-[8px] text-slate-400 font-mono">QUAT Qz</div>
+              <div id="quatZ" class="text-cyan-300 font-mono font-bold text-[11px]">+0.0000</div>
+            </div>
           </div>
         </div>
       </div>
@@ -625,7 +645,7 @@
 
     </div>
 
-    <!-- LEAFLET.JS RECOVERY GPS MAP -->
+    <!-- LEAFLET.JS RECOVERY GPS MAP (HDOP UNCHANGED AS STATIC TEXT) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
       <div class="hud-card p-4 rounded-xl lg:col-span-8 flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2 mb-2">
@@ -635,6 +655,7 @@
           </div>
           <div class="text-[11px] text-slate-400 flex items-center gap-3">
             <span>SATS: <strong id="gpsSats" class="text-emerald-400">0 LOCKED</strong></span>
+            <!-- HDOP UNCHANGED AS STATIC TEXT PER INSTRUCTION -->
             <span>HDOP: <strong class="text-cyan-300">0.9</strong></span>
           </div>
         </div>
@@ -710,7 +731,7 @@
         </div>
 
         <div class="flex items-center flex-wrap gap-1.5 my-2.5 text-xs">
-          <button onclick="selectGraph('altitude')" id="tab-altitude" class="graph-tab-active px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 transition-all">
+          <button onclick="selectGraph('altitude')" id="tab-altitude" class="graph-tab-active px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300 transition-all">
             ALTITUDE
           </button>
           <button onclick="selectGraph('mpu')" id="tab-mpu" class="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 transition-all font-bold text-cyan-300">
@@ -1118,12 +1139,12 @@
       vivaModal.classList.toggle('hidden');
     }
 
-    // 5. THREE.JS 3D CUBESAT
+    // 5. THREE.JS 3D CUBESAT (OPTION 1: SMOOTH, STABLE, IN-PLACE ROTATION ON 3D UNIT GRID)
     let scene, camera, renderer, cubeSatGroup;
     let isThreeInitialized = false;
     let isDragging = false;
     let prevMousePos = { x: 0, y: 0 };
-    let cameraRotation = { x: 0.35, y: -0.6 };
+    let cameraRotation = { x: 0.22, y: 0.0 };
 
     function initThreeJsCubeSat() {
       if (isThreeInitialized || typeof THREE === 'undefined') return;
@@ -1132,22 +1153,51 @@
 
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(45, rect.width / rect.height, 0.1, 100);
-      camera.position.set(0, 0, 7.8);
+      camera.position.set(0, 1.8, 7.8);
 
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(rect.width, rect.height);
       renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
       scene.add(ambientLight);
       const dirLight1 = new THREE.DirectionalLight(0x00f0ff, 1.2);
-      dirLight1.position.set(5, 5, 5);
+      dirLight1.position.set(5, 7, 5);
       scene.add(dirLight1);
       const dirLight2 = new THREE.DirectionalLight(0x2563eb, 0.8);
-      dirLight2.position.set(-5, -5, -3);
+      dirLight2.position.set(-5, -3, -3);
       scene.add(dirLight2);
 
+      // Floor Grid: 14x14 with 14 divisions = EXACT 1x1 UNIT SQUARES
+      const floorGrid = new THREE.GridHelper(14, 14, 0x00f0ff, 0x1e3a5f);
+      floorGrid.position.y = -2.0;
+      scene.add(floorGrid);
+
+      // Back Wall Grid: 1x1 Unit Squares behind model for vertical reference
+      const backGrid = new THREE.GridHelper(14, 14, 0x00f0ff, 0x0f243d);
+      backGrid.position.set(0, 4.0, -4.5);
+      backGrid.rotation.x = Math.PI / 2;
+      scene.add(backGrid);
+
+      // Center Reference Ring
+      const shadowGeo = new THREE.RingGeometry(0.35, 0.55, 32);
+      const shadowMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, side: THREE.DoubleSide, transparent: true, opacity: 0.75 });
+      const groundShadow = new THREE.Mesh(shadowGeo, shadowMat);
+      groundShadow.rotation.x = Math.PI / 2;
+      groundShadow.position.set(0, -1.98, 0);
+      scene.add(groundShadow);
+
+      // Vertical Reference Drop Line
+      const dropLineGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0, -2.0, 0)
+      ]);
+      const dropLineMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.4 });
+      const dropLine = new THREE.Line(dropLineGeo, dropLineMat);
+      scene.add(dropLine);
+
+      // Satellite Group (Anchored at 0, 0, 0 for zero vibration, smooth in-place rotation)
       cubeSatGroup = new THREE.Group();
       scene.add(cubeSatGroup);
 
@@ -1192,9 +1242,9 @@
       }
 
       const axesGroup = new THREE.Group();
-      axesGroup.add(createAxisArrow(new THREE.Vector3(1, 0, 0), 0xf43f5e));
-      axesGroup.add(createAxisArrow(new THREE.Vector3(0, 1, 0), 0x10b981));
-      axesGroup.add(createAxisArrow(new THREE.Vector3(0, 0, 1), 0x00f0ff));
+      axesGroup.add(createAxisArrow(new THREE.Vector3(1, 0, 0), 0xf43f5e)); // X: Red
+      axesGroup.add(createAxisArrow(new THREE.Vector3(0, 1, 0), 0x10b981)); // Y: Green
+      axesGroup.add(createAxisArrow(new THREE.Vector3(0, 0, 1), 0x00f0ff)); // Z: Sky
       cubeSatGroup.add(axesGroup);
 
       container.addEventListener('mousedown', (e) => {
@@ -1211,11 +1261,15 @@
 
       function renderThree() {
         requestAnimationFrame(renderThree);
-        const radius = 7.5;
+
+        // Solid anchor at 0, 0, 0 - NO translation, zero jitter
+        cubeSatGroup.position.set(0, 0, 0);
+
+        const radius = 7.8;
         camera.position.x = radius * Math.sin(cameraRotation.y) * Math.cos(cameraRotation.x);
-        camera.position.y = radius * Math.sin(cameraRotation.x);
+        camera.position.y = radius * Math.sin(cameraRotation.x) + 0.6;
         camera.position.z = radius * Math.cos(cameraRotation.y) * Math.cos(cameraRotation.x);
-        camera.lookAt(0, 0, 0);
+        camera.lookAt(0, -0.2, 0);
         renderer.render(scene, camera);
       }
       renderThree();
@@ -1747,37 +1801,30 @@
         simTimer += 0.2;
         simPacketSeq++;
 
-        // Mission Trajectory Simulation Profile
         if (simTimer < 4.0) {
-          // Launch Pad to Boost
           simPhase = "BOOST";
           simVsi = 22.0 + Math.random() * 4.0;
           simAltitude += simVsi * 0.2;
           simPitch = 25.0 + Math.sin(simTimer) * 5.0;
           simRoll = Math.sin(simTimer * 2) * 4.0;
         } else if (simAltitude < 120.0 && simVsi > 0.5) {
-          // Coasting to Apogee
           simVsi = Math.max(0.5, simVsi - 2.8);
           simAltitude += simVsi * 0.2;
           simPitch = Math.max(0, simPitch - 3.0);
         } else if (simAltitude >= 120.0 || (simVsi <= 0.5 && simAltitude > 40.0)) {
-          // Apogee Reach (Peak Trajectory)
           simPhase = "APOGEE";
           simVsi = -0.5;
           simPitch = 0.0;
         }
 
-        // Descent Phase
         if (simPhase === "APOGEE" && simTimer > 8.0) {
           simPhase = "DESCENT";
         }
 
         if (simPhase === "DESCENT") {
           if (isAnomalyActive) {
-            // Failure Mode: Parachute Failure -> Freefall at -16 m/s
             simVsi = -15.5 - Math.random() * 2.0;
           } else {
-            // Nominal Parachute Terminal Velocity: -6.8 m/s
             simVsi = -6.8 + (Math.random() - 0.5);
           }
           simAltitude = Math.max(0, simAltitude + simVsi * 0.2);
@@ -1905,7 +1952,6 @@
       document.getElementById('packetSeq').innerText = `#${packetSeqCounter}`;
       playTelemetryBeep();
 
-      // Real Dynamic Packet Loss (PER) Calculation
       calculateRealPacketLoss(payload.pkt);
 
       if (payload.rssi !== undefined) {
@@ -1914,10 +1960,9 @@
 
       lastRawAltitude = payload.bmp.altitude;
       const relativeAlt = payload.bmp.altitude - altTareOffset;
-      const vsi = (payload.bmp.altitude - prevAltitude) / 0.20; // 200ms cadence
+      const vsi = (payload.bmp.altitude - prevAltitude) / 0.20;
       prevAltitude = payload.bmp.altitude;
 
-      // Peak Envelope Memory
       if (relativeAlt > peakAltVal) {
         peakAltVal = relativeAlt;
         document.getElementById('peakAlt').innerText = `${peakAltVal.toFixed(1)} m`;
@@ -1954,22 +1999,36 @@
 
       updateFlightState(payload.bmp.altitude, vsi);
 
-      // 3D Three.js Attitude
+      // =========================================================================
+      // OPTION 1: SMOOTH, STABLE, IN-PLACE ROTATION ON 3D UNIT GRID
+      // =========================================================================
       if (cubeSatGroup) {
-        cubeSatGroup.rotation.x = (payload.mpu.pitch * Math.PI) / 180;
-        cubeSatGroup.rotation.y = (payload.mpu.yaw * Math.PI) / 180;
-        cubeSatGroup.rotation.z = (payload.mpu.roll * Math.PI) / 180;
+        const pitchRad = (payload.mpu.pitch * Math.PI) / 180;
+        const rollRad  = (payload.mpu.roll  * Math.PI) / 180;
+        const yawRad   = (payload.mpu.yaw   * Math.PI) / 180;
+
+        // Aerospace Tait-Bryan YXZ Euler order - zero translation, perfectly centered
+        const euler = new THREE.Euler(pitchRad, -yawRad, -rollRad, 'YXZ');
+        cubeSatGroup.quaternion.setFromEuler(euler);
+
+        // Dynamic Quaternions Extraction (Qw, Qx, Qy, Qz)
+        const q = cubeSatGroup.quaternion;
+        document.getElementById('quatW').innerText = (q.w >= 0 ? '+' : '') + q.w.toFixed(4);
+        document.getElementById('quatX').innerText = (q.x >= 0 ? '+' : '') + q.x.toFixed(4);
+        document.getElementById('quatY').innerText = (q.y >= 0 ? '+' : '') + q.y.toFixed(4);
+        document.getElementById('quatZ').innerText = (q.z >= 0 ? '+' : '') + q.z.toFixed(4);
       }
+
+      // Numerical Euler Angles
+      document.getElementById('pitchVal').innerText = `${payload.mpu.pitch >= 0 ? '+' : ''}${payload.mpu.pitch.toFixed(1)}°`;
+      document.getElementById('rollVal').innerText = `${payload.mpu.roll >= 0 ? '+' : ''}${payload.mpu.roll.toFixed(1)}°`;
+      document.getElementById('yawVal').innerText = `${payload.mpu.yaw >= 0 ? '+' : ''}${payload.mpu.yaw.toFixed(1)}°`;
 
       // PFD & Numerical Displays
       drawPfd(payload.mpu.pitch, payload.mpu.roll, relativeAlt, payload.gps.speed, payload.mpu.yaw);
       document.getElementById('pfdSpeedVal').innerText = `${payload.gps.speed.toFixed(1)} km/h`;
       document.getElementById('pfdAltVal').innerText = `${relativeAlt.toFixed(1)} m`;
       document.getElementById('pfdHdgVal').innerText = `${Math.round((payload.mpu.yaw % 360 + 360) % 360).toString().padStart(3, '0')}°`;
-
-      document.getElementById('pitchVal').innerText = `${payload.mpu.pitch >= 0 ? '+' : ''}${payload.mpu.pitch.toFixed(1)}°`;
-      document.getElementById('rollVal').innerText = `${payload.mpu.roll >= 0 ? '+' : ''}${payload.mpu.roll.toFixed(1)}°`;
-      document.getElementById('yawVal').innerText = `${payload.mpu.yaw.toFixed(1)}°`;
 
       document.getElementById('altitudeVal').innerText = relativeAlt.toFixed(1);
       document.getElementById('pressureVal').innerText = `${payload.bmp.pressure.toFixed(1)} hPa`;
@@ -2033,7 +2092,7 @@
       // MET Timer
       if (payload.time !== undefined && payload.time > 0) {
         const sec = Math.floor(payload.time / 1000);
-        document.getElementById('metTimer').innerText = `T+${Math.floor(sec/60).toString().padStart(2,'0')}:${(sec%60).toString().padStart(2,'0')}`;
+        document.getElementById('metTimer').innerText = `T+${Math.floor(sec/60).toString().padStart(2,'0')}:${(Math.floor(sec)%60).toString().padStart(2,'0')}`;
       }
 
       // CSV Recording
