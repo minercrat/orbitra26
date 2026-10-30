@@ -334,31 +334,13 @@
         </div>
       </div>
 
-      <!-- Action Toolbar -->
+      <!-- Action Toolbar (With 3 Buttons Cleanly Removed) -->
       <div class="flex items-center flex-wrap gap-2 text-xs">
         
         <!-- DIRECT USB SERIAL HARDWARE LINK -->
         <button id="usbConnectBtn" onclick="connectUsbSerial()" class="px-3 py-1.5 rounded bg-emerald-950 border border-emerald-400 text-emerald-300 hover:bg-emerald-500 hover:text-black flex items-center gap-1.5 transition-all shadow-[0_0_10px_rgba(16,185,129,0.4)]">
           <i data-lucide="usb" class="w-3.5 h-3.5"></i>
           <span id="usbBtnText" class="font-bold text-[11px]">CONNECT USB</span>
-        </button>
-
-        <!-- STAGE 3 ANOMALY DRILL BUTTON (JUDGE DRILL) -->
-        <button id="anomalyBtn" onclick="toggleAnomalyDrill()" class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-rose-300 hover:border-rose-400 flex items-center gap-1.5 transition-all" title="Stage 3 Judge Anomaly Simulation">
-          <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-400"></i>
-          <span id="anomalyBtnText" class="font-bold text-[11px]">ANOMALY DRILL</span>
-        </button>
-
-        <!-- VIVA & ARCHITECTURE CHEAT SHEET -->
-        <button onclick="toggleVivaModal()" class="px-3 py-1.5 rounded bg-indigo-950 border border-indigo-400 text-indigo-300 hover:bg-indigo-600 hover:text-white flex items-center gap-1.5 transition-all shadow-[0_0_10px_rgba(99,102,241,0.4)]">
-          <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-          <span class="orbitron font-bold text-[10px]">VIVA GUIDE</span>
-        </button>
-
-        <!-- WORKING FLIGHT SIMULATOR -->
-        <button id="simToggleBtn" onclick="toggleFlightSim()" class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-slate-300 hover:border-cyan-400 flex items-center space-x-1.5 transition-all">
-          <span id="simLed" class="w-2 h-2 rounded-full bg-slate-500"></span>
-          <span class="orbitron font-bold text-[11px]" id="simStatusText">SIM: OFF</span>
         </button>
 
         <button onclick="tareAltimeter()" class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 hover:border-amber-400 text-amber-300 flex items-center gap-1 transition-colors" title="Set Launch Pad Ground Reference">
@@ -452,7 +434,7 @@
     <!-- Main Telemetry Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
-      <!-- 1. MPU6050 3D CUBESAT (PRECISION IN-PLACE ROTATION ON 3D UNIT GRID) -->
+      <!-- 1. MPU6050 3D CUBESAT (3D UNIT GRAPH / REFERENCE GRID) -->
       <div class="hud-card p-4 rounded-xl flex flex-col justify-between">
         <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2">
           <div class="flex items-center space-x-2">
@@ -468,7 +450,7 @@
         <div class="relative w-full h-56 rounded-lg bg-slate-950/90 my-2 overflow-hidden border border-cyan-500/30 shadow-[inset_0_0_30px_rgba(0,240,255,0.1)]">
           <div id="threeJsContainer" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
           
-          <div class="absolute bottom-2 left-2 flex items-center space-x-3 text-[9px] bg-slate-950/90 px-2.5 py-1 rounded border border-cyan-500/30 pointer-events-none">
+          <div class="absolute bottom-2 left-2 flex items-center space-x-3 text-[9px] bg-slate-950/90 px-2 py-1 rounded border border-cyan-500/30 pointer-events-none">
             <span class="text-cyan-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-sm"></span> 1x1 UNIT GRID</span>
             <span class="text-red-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> +X PITCH</span>
             <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> +Y ROLL</span>
@@ -795,81 +777,6 @@
   </main>
 
   <!-- ======================================================== -->
-  <!-- 3. STAGE 2 VIVA & SYSTEM ARCHITECTURE MODAL             -->
-  <!-- ======================================================== -->
-  <div id="vivaModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="hud-card w-full max-w-4xl p-6 rounded-2xl max-h-[90vh] overflow-y-auto border-cyan-400 shadow-[0_0_50px_rgba(0,240,255,0.4)]">
-      
-      <div class="flex items-center justify-between border-b border-cyan-500/30 pb-3 mb-4">
-        <div>
-          <div class="flex items-center gap-2">
-            <h2 class="orbitron text-lg font-black text-cyan-400">STAGE 2 // TECHNICAL INSPECTION & VIVA GUIDE</h2>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-400/50 font-bold">TEAM ANVESHAK</span>
-          </div>
-          <p class="text-xs text-slate-400">ORBITRA '26 AVIONICS HARDWARE & COMMUNICATION ARCHITECTURE CHEAT SHEET</p>
-        </div>
-        <button onclick="toggleVivaModal()" class="p-2 rounded-lg bg-cyan-950/80 border border-cyan-400 text-cyan-300 hover:bg-cyan-500 hover:text-black transition-colors">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-        <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-700">
-          <div class="orbitron text-cyan-300 font-bold text-sm mb-1">1. DUAL ESP32 ARCHITECTURE</div>
-          <div class="text-slate-300 space-y-1">
-            <div>• <strong>Node 1 (CubeSat):</strong> Telemetry transmitter inside satellite.</div>
-            <div>• <strong>Node 2 (Ground Base):</strong> Receiver plugged via USB to laptop.</div>
-            <div>• <strong>Protocol:</strong> 2.4GHz ESP-NOW (Low latency &lt;15ms, direct peer-to-peer).</div>
-            <div>• <strong>Processor:</strong> Xtensa Dual-Core 32-bit LX6 @ 240 MHz.</div>
-          </div>
-        </div>
-
-        <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-700">
-          <div class="orbitron text-cyan-300 font-bold text-sm mb-1">2. MPU6050 (6-AXIS IMU)</div>
-          <div class="text-slate-300 space-y-1">
-            <div>• <strong>Function:</strong> Measures 3-axis angular velocity and linear acceleration.</div>
-            <div>• <strong>Bus:</strong> I2C Interface (Address: <code class="text-cyan-300">0x68</code>).</div>
-            <div>• <strong>Pins:</strong> SDA (GPIO 21), SCL (GPIO 22).</div>
-            <div>• <strong>Filtering:</strong> 10Hz Hardware DLPF enabled on register 0x1A.</div>
-          </div>
-        </div>
-
-        <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-700">
-          <div class="orbitron text-cyan-300 font-bold text-sm mb-1">3. BMP280 (BAROMETER)</div>
-          <div class="text-slate-300 space-y-1">
-            <div>• <strong>Function:</strong> Atmospheric pressure (hPa) & relative altitude via hypsometric formula.</div>
-            <div>• <strong>Bus:</strong> Shared I2C Bus (Address: <code class="text-cyan-300">0x76 / 0x77</code>).</div>
-            <div>• <strong>Filtering:</strong> 16x IIR Hardware Filter configured.</div>
-          </div>
-        </div>
-
-        <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-700">
-          <div class="orbitron text-cyan-300 font-bold text-sm mb-1">4. DHT11 (ENVIRONMENT)</div>
-          <div class="text-slate-300 space-y-1">
-            <div>• <strong>Function:</strong> Chassis internal ambient temperature & relative humidity.</div>
-            <div>• <strong>Bus:</strong> 1-Wire Digital Communication on GPIO 4.</div>
-            <div>• <strong>Sampling:</strong> Throttled to 2-second intervals.</div>
-          </div>
-        </div>
-
-        <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-700 md:col-span-2">
-          <div class="orbitron text-cyan-300 font-bold text-sm mb-1">5. NEO-6M GPS MODULE</div>
-          <div class="text-slate-300 space-y-1">
-            <div>• <strong>Function:</strong> Latitude, Longitude, Doppler Ground Speed, and GPS altitude fallback.</div>
-            <div>• <strong>Bus:</strong> HardwareSerial UART2 @ 9600 baud (RX2=16, TX2=17).</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-4 p-3 rounded bg-cyan-950/40 border border-cyan-500/30 text-xs text-slate-300 flex justify-between items-center">
-        <span>Developed by: <strong class="text-cyan-300">TEAM ANVESHAK</strong></span>
-        <span class="text-cyan-300 font-bold">ORBITRA '26 VERIFIED</span>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
   <!-- JAVASCRIPT: AVIONICS, MAP, SOUND ENGINE & WEB SERIAL     -->
   <!-- ======================================================== -->
   <script>
@@ -1001,24 +908,6 @@
       } catch (e) {}
     }
 
-    function playCriticalAlarm() {
-      if (isAudioMuted) return;
-      try {
-        const ctx = getAudioCtx();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(880, ctx.currentTime);
-        osc.frequency.linearRampToValueAtTime(440, ctx.currentTime + 0.25);
-        gain.gain.setValueAtTime(0.12, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.25);
-      } catch (e) {}
-    }
-
     // 3. LEAFLET.JS RECOVERY GPS MAP
     const MMMUT_COORDS = [26.7314, 83.4332];
     let mapInstance = null;
@@ -1100,10 +989,9 @@
       return (θ * 180 / Math.PI + 360) % 360;
     }
 
-    // 4. SCREEN TRANSITIONS & VIVA MODAL
+    // 4. SCREEN TRANSITIONS
     const homeScreen = document.getElementById('homeScreen');
     const dashboardScreen = document.getElementById('dashboardScreen');
-    const vivaModal = document.getElementById('vivaModal');
 
     function launchDashboard() {
       homeScreen.classList.add('opacity-0', 'scale-95');
@@ -1135,11 +1023,7 @@
       }, 500);
     }
 
-    function toggleVivaModal() {
-      vivaModal.classList.toggle('hidden');
-    }
-
-    // 5. THREE.JS 3D CUBESAT (OPTION 1: SMOOTH, STABLE, IN-PLACE ROTATION ON 3D UNIT GRID)
+    // 5. THREE.JS 3D CUBESAT (PRECISION IN-PLACE ROTATION ON 3D UNIT GRID)
     let scene, camera, renderer, cubeSatGroup;
     let isThreeInitialized = false;
     let isDragging = false;
@@ -1678,8 +1562,6 @@
         rawLog.appendChild(logLine);
         rawLog.scrollTop = rawLog.scrollHeight;
 
-        if (isSimActive) toggleFlightSim();
-
         const textDecoder = new TextDecoder();
         serialReader = serialPort.readable.getReader();
         let buffer = "";
@@ -1730,161 +1612,7 @@
       }
     }
 
-    // 11. INTERACTIVE SIMULATOR & ANOMALY DRILL ENGINE
-    let isSimActive = false;
-    let simTimer = 0;
-    let simIntervalId = null;
-    let isAnomalyActive = false;
-
-    let simAltitude = 0.0;
-    let simVsi = 0.0;
-    let simPhase = "PAD";
-    let simPitch = 0.0;
-    let simRoll = 0.0;
-    let simPacketSeq = 0;
-
-    function toggleFlightSim() {
-      isSimActive = !isSimActive;
-      const simToggleBtn = document.getElementById('simToggleBtn');
-      const simLed = document.getElementById('simLed');
-      const simStatusText = document.getElementById('simStatusText');
-      const simIndicatorBadge = document.getElementById('simIndicatorBadge');
-
-      if (isSimActive) {
-        simToggleBtn.classList.remove('bg-slate-900', 'border-slate-700', 'text-slate-300');
-        simToggleBtn.classList.add('bg-cyan-950', 'border-cyan-400', 'text-cyan-300', 'shadow-[0_0_15px_rgba(0,240,255,0.4)]');
-        simLed.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-ping';
-        simStatusText.innerText = 'SIM: ACTIVE';
-        simIndicatorBadge.className = 'text-[9px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/50 uppercase';
-        simIndicatorBadge.innerText = 'SIM ACTIVE (TRAJECTORY)';
-
-        startSimulatorLoop();
-      } else {
-        simToggleBtn.classList.add('bg-slate-900', 'border-slate-700', 'text-slate-300');
-        simToggleBtn.classList.remove('bg-cyan-950', 'border-cyan-400', 'text-cyan-300', 'shadow-[0_0_15px_rgba(0,240,255,0.4)]');
-        simLed.className = 'w-2 h-2 rounded-full bg-slate-500';
-        simStatusText.innerText = 'SIM: OFF';
-        simIndicatorBadge.className = 'text-[9px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 uppercase';
-        simIndicatorBadge.innerText = 'STANDBY (STABLE)';
-
-        stopSimulatorLoop();
-      }
-    }
-
-    function toggleAnomalyDrill() {
-      isAnomalyActive = !isAnomalyActive;
-      const btn = document.getElementById('anomalyBtn');
-      const text = document.getElementById('anomalyBtnText');
-
-      if (isAnomalyActive) {
-        btn.className = "px-3 py-1.5 rounded bg-rose-950 border border-rose-500 text-rose-300 animate-pulse flex items-center gap-1.5 shadow-[0_0_15px_rgba(244,63,94,0.6)]";
-        text.innerText = "DRILL: ACTIVE!";
-        const logLine = document.createElement('div');
-        logLine.innerHTML = `<span class="text-rose-400 font-bold">[ANOMALY_INJECTED]</span> Simulated Parachute Failure (Excessive Terminal Freefall Speed).`;
-        rawLog.appendChild(logLine);
-        rawLog.scrollTop = rawLog.scrollHeight;
-        playCriticalAlarm();
-      } else {
-        btn.className = "px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-rose-300 hover:border-rose-400 flex items-center gap-1.5 transition-all";
-        text.innerText = "ANOMALY DRILL";
-      }
-    }
-
-    function startSimulatorLoop() {
-      simAltitude = 0.0;
-      simVsi = 0.0;
-      simPhase = "BOOST";
-      simTimer = 0;
-      simPacketSeq = 1;
-
-      simIntervalId = setInterval(() => {
-        simTimer += 0.2;
-        simPacketSeq++;
-
-        if (simTimer < 4.0) {
-          simPhase = "BOOST";
-          simVsi = 22.0 + Math.random() * 4.0;
-          simAltitude += simVsi * 0.2;
-          simPitch = 25.0 + Math.sin(simTimer) * 5.0;
-          simRoll = Math.sin(simTimer * 2) * 4.0;
-        } else if (simAltitude < 120.0 && simVsi > 0.5) {
-          simVsi = Math.max(0.5, simVsi - 2.8);
-          simAltitude += simVsi * 0.2;
-          simPitch = Math.max(0, simPitch - 3.0);
-        } else if (simAltitude >= 120.0 || (simVsi <= 0.5 && simAltitude > 40.0)) {
-          simPhase = "APOGEE";
-          simVsi = -0.5;
-          simPitch = 0.0;
-        }
-
-        if (simPhase === "APOGEE" && simTimer > 8.0) {
-          simPhase = "DESCENT";
-        }
-
-        if (simPhase === "DESCENT") {
-          if (isAnomalyActive) {
-            simVsi = -15.5 - Math.random() * 2.0;
-          } else {
-            simVsi = -6.8 + (Math.random() - 0.5);
-          }
-          simAltitude = Math.max(0, simAltitude + simVsi * 0.2);
-          simPitch = Math.sin(simTimer * 1.5) * 6.0;
-          simRoll = Math.cos(simTimer * 1.5) * 6.0;
-
-          if (simAltitude <= 1.0) {
-            simAltitude = 0.0;
-            simVsi = 0.0;
-            simPhase = "LAND";
-          }
-        }
-
-        const simPayload = {
-          pkt: simPacketSeq,
-          time: Math.floor(simTimer * 1000),
-          rssi: -58 + Math.floor(Math.random() * 4),
-          mpu: {
-            pitch: simPitch,
-            roll: simRoll,
-            yaw: (simTimer * 12) % 360,
-            ax: simPhase === "BOOST" ? 2.4 : 0.05,
-            ay: 0.02,
-            az: simPhase === "BOOST" ? 2.8 : 1.02
-          },
-          bmp: {
-            altitude: simAltitude,
-            pressure: 1013.25 * Math.pow(1 - simAltitude / 44330.0, 5.255),
-            temp: 25.0 - (simAltitude * 0.0065)
-          },
-          dht: {
-            tempDht: 26.5,
-            hum: Math.max(35, 52 - simAltitude * 0.1)
-          },
-          gps: {
-            lat: 26.7314 + (simTimer * 0.00004),
-            lng: 83.4332 + (simTimer * 0.00005),
-            spd: Math.abs(simVsi) * 3.6,
-            galt: 84.0 + simAltitude,
-            sats: 8,
-            fix: 2
-          }
-        };
-
-        updateDashboardTelemetry(normalizeTelemetryPayload(simPayload));
-
-        if (simPhase === "LAND" && simTimer > 25.0) {
-          stopSimulatorLoop();
-        }
-      }, 200);
-    }
-
-    function stopSimulatorLoop() {
-      if (simIntervalId) {
-        clearInterval(simIntervalId);
-        simIntervalId = null;
-      }
-    }
-
-    // 12. TELEMETRY PROCESSING ENGINE
+    // 11. TELEMETRY PROCESSING ENGINE
     let packetSeqCounter = 0;
     let lastRawAltitude = 0.0;
     let prevAltitude = 0.0;
@@ -1903,13 +1631,13 @@
       } else if (vsi < 1.0 && vsi > -1.5 && alt > (altTareOffset + 35)) {
         activePhase = 'apogee';
         if (apogeeTimestampStr === "STANDBY") {
-          apogeeTimestampStr = `T+${Math.floor(simTimer/60).toString().padStart(2,'0')}:${(Math.floor(simTimer)%60).toString().padStart(2,'0')}`;
+          apogeeTimestampStr = "APOGEE REACHED";
           document.getElementById('apogeeTime').innerText = apogeeTimestampStr;
           playApogeeChime();
         }
       } else if (vsi <= -1.5 && alt > (altTareOffset + 5)) {
         activePhase = 'descent';
-      } else if (alt <= (altTareOffset + 3) && (simTimer > 15 || peakAltVal > 20)) {
+      } else if (alt <= (altTareOffset + 3) && peakAltVal > 20) {
         activePhase = 'land';
       }
 
@@ -1933,11 +1661,10 @@
           annunChute.className = "annun-box annun-nominal";
           annunChute.innerText = `CHUTE: NOMINAL ${Math.abs(vsi).toFixed(1)}m/s`;
         } else if (Math.abs(vsi) > 10.5) {
-          chuteStatus.innerText = "EXCESSIVE DESCENT (FREEFALL!)";
+          chuteStatus.innerText = "EXCESSIVE DESCENT SPEED";
           chuteStatus.className = "text-rose-400 font-bold animate-pulse";
           annunChute.className = "annun-box annun-critical";
           annunChute.innerText = "CHUTE: OVERLIMIT / FREEFALL";
-          playCriticalAlarm();
         }
       } else {
         chuteStatus.innerText = "READY (5-10 m/s)";
@@ -1986,9 +1713,6 @@
       if (vsi > 1.5) {
         vsiBadge.innerText = "CLIMBING";
         vsiBadge.className = "font-bold text-amber-400";
-      } else if (vsi < -10.5) {
-        vsiBadge.innerText = "CRITICAL DESCENT";
-        vsiBadge.className = "font-bold text-rose-500 animate-pulse";
       } else if (vsi < -1.5) {
         vsiBadge.innerText = "DESCENDING";
         vsiBadge.className = "font-bold text-sky-400";
@@ -2000,14 +1724,14 @@
       updateFlightState(payload.bmp.altitude, vsi);
 
       // =========================================================================
-      // OPTION 1: SMOOTH, STABLE, IN-PLACE ROTATION ON 3D UNIT GRID
+      // ROCK-SOLID IN-PLACE ATTITUDE ROTATION (NO TRANSLATION JITTER)
       // =========================================================================
       if (cubeSatGroup) {
         const pitchRad = (payload.mpu.pitch * Math.PI) / 180;
         const rollRad  = (payload.mpu.roll  * Math.PI) / 180;
         const yawRad   = (payload.mpu.yaw   * Math.PI) / 180;
 
-        // Aerospace Tait-Bryan YXZ Euler order - zero translation, perfectly centered
+        // In-place Tait-Bryan YXZ Euler rotation (Firmly centered, zero vibration)
         const euler = new THREE.Euler(pitchRad, -yawRad, -rollRad, 'YXZ');
         cubeSatGroup.quaternion.setFromEuler(euler);
 
